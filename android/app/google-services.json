@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "970246546691",
+    "project_id": "remi-963c9",
+    "storage_bucket": "remi-963c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970246546691:android:82f4f2a9d88c745107f536",
+        "android_client_info": {
+          "package_name": "com.example.remi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970246546691-r4l4qcfu9j4q4ttburqed3ftc4kf8t9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEpvZVJojuVgqo3KWO4cvfePeeAy-Clt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970246546691-r4l4qcfu9j4q4ttburqed3ftc4kf8t9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
