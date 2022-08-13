@@ -2,8 +2,8 @@
 ![remi-cover](cover.jpg)
 
 ## Description
-Remi - is app writed on flutter framework for order 
-tables in restaurants, caffees and another places.
+Remi - is app wrote on flutter framework for order 
+tables in restaurants, coffees and another places.
 
 ---
 
@@ -15,4 +15,4 @@ Link to Figma: https://www.figma.com/file/o0w1z3CFn3bEFpY9vwu5fw/App-REMI?node-i
 ## Download builds
     Since the application is not completed yet There are no build yet.
 
-    If you want start debug on Windows application not be started because it's return ERROR FIREBASE. 
+    If you want start debug on Windows application not be started because it's return ERROR FIREBASE.

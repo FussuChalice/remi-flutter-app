@@ -82,7 +82,7 @@ class _LogInPageState extends State<LogInPage> {
                           ),
                         },
                         child: Text(
-                          "If you don't have accaunt - click this.",
+                          "If you don't have account - click this.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.blue,

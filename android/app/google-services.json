@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "970246546691-jvadrfv6anp39prn2hl9nnfvgel7gle1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.remi",
+            "certificate_hash": "244d8d07d62bfb60e0772b296bbff21c456df243"
+          }
+        },
+        {
           "client_id": "970246546691-r4l4qcfu9j4q4ttburqed3ftc4kf8t9i.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "970246546691-r4l4qcfu9j4q4ttburqed3ftc4kf8t9i.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "970246546691-hjp2orb4ihr6trj2bgrdn1rbv8qv12tc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.remi"
+              }
             }
           ]
         }
