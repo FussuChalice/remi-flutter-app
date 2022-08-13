@@ -71,4 +71,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
+// Apply Google Services
+// For more information: https://developers.google.com/android/guides/google-services-plugin
 apply plugin: 'com.google.gms.google-services'

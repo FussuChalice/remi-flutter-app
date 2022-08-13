@@ -1,13 +1,26 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:remi/cdt/font_settings.dart';
+import 'package:flutter/material.dart';
 import 'package:remi/cdt/user_print.dart';
+
+// import 'package:remi/cdt/font_settings.dart';
 
 /// # Authorization
 /// Part of cdt library.
 /// Created for quick auth with Firebase, check password and email on correct writing.
 class Authorization {
   final int normalPasswordLength = 8;
+  bool _GoogleSignInCatcher = false;
+
+  /// getter
+  /// Out:
+  ///   - false: error
+  ///   - true: ok
+  bool getGoogleSignInCatcher() {
+    return this._GoogleSignInCatcher;
+  }
 
   /// Check [password] resemblance with [confirm password].
   ///
@@ -17,7 +30,7 @@ class Authorization {
   bool checkPasswordResemblance(
       {required String password, required String confirmPassword}) {
     bool fResp = false;
-    password == confirmPassword ? fResp = true : fResp = false;
+    password == confirmPassword && password.length == confirmPassword.length ? fResp = true : fResp = false;
 
     return fResp;
   }
@@ -81,11 +94,13 @@ class Authorization {
   ]);
 
   /// Sign In with Google
-  Future handleSignIn() async {
+  Future handleSignIn(BuildContext context) async {
     try {
       await this._googleSignIn.signIn();
+      this._GoogleSignInCatcher = true;
+
     } catch (error) {
-      debugLog(CDTColors.Red, error.toString());
+      displayOnScreen(Text(error.toString()), context);
     }
   }
 }

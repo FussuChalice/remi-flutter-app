@@ -179,12 +179,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           onPressed: () {
                             // IF YOU START APP IN DEBUG MODE - Google will start warning about the risk
                             // Sign In with Google
-                            CDTAuth.handleSignIn().then((value) => {
-                              // Go to Home page
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const HomePage()));
+                            CDTAuth.handleSignIn(context).then((value) => {
+                              if (CDTAuth.getGoogleSignInCatcher()) {
+                                // Go to Home page
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const HomePage()))
+                              }
                             });
                           },
                           icon: Image.asset(
@@ -251,6 +253,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             _UserEmailController.text)) {
                           debugLog(CDTColors.Red,
                               "${CDTColors.Red}Email validation is fail!${CDTColors.Reset}");
+                          displayOnScreen(Text('Email entered incorrectly'), context);
                           MistakeCount++;
                         }
 
@@ -259,6 +262,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             _UserPasswordController.text)) {
                           debugLog(CDTColors.Red,
                               "${CDTColors.Red}Password < NormalLength int(8) ${CDTColors.Reset}");
+                          displayOnScreen(Text('Password is too short! The minimum length is 8 characters.'), context);
                           MistakeCount++;
                         }
 
@@ -268,6 +272,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             confirmPassword:
                                 _UserConfirmPasswordController.text)) {
                           print('password not resemblance');
+                          displayOnScreen(Text('Passwords are different! Retype'), context);
+                          MistakeCount++;
                         }
 
                         if (MistakeCount == 0) {
@@ -294,6 +300,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                             // log errors
                             debugLog(CDTColors.Red, strWithCreateAccErrors);
+                            displayOnScreen(Text(strWithCreateAccErrors), context);
                           }
                         } else {
                           debugLog(CDTColors.Red,
