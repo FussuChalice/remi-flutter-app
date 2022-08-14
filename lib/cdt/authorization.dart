@@ -1,26 +1,18 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/material.dart';
-import 'package:remi/cdt/user_print.dart';
 
-// import 'package:remi/cdt/font_settings.dart';
 
 /// # Authorization
 /// Part of cdt library.
 /// Created for quick auth with Firebase, check password and email on correct writing.
 class Authorization {
   final int normalPasswordLength = 8;
-  bool _GoogleSignInCatcher = false;
+  // bool _GoogleSignInCatcher = false;
 
-  /// getter
-  /// Out:
-  ///   - false: error
-  ///   - true: ok
-  bool getGoogleSignInCatcher() {
-    return this._GoogleSignInCatcher;
-  }
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
 
   /// Check [password] resemblance with [confirm password].
   ///
@@ -66,8 +58,7 @@ class Authorization {
     List<String> errList = [];
 
     try {
-      FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      _auth.createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       // Segment of code saved from https://firebase.google.com/docs/auth/flutter/password-auth
       // But commented print() functions.
@@ -86,21 +77,22 @@ class Authorization {
     return errList;
   }
 
-  // Code get from https://pub.dev/packages/google_sign_in and
-  // https://github.com/flutter/plugins/blob/main/packages/google_sign_in/google_sign_in/example/lib/main.dart
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly'
-  ]);
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the auth flow
+    final GoogleSignInAccount? _googleAccount = await _googleSignIn.signIn();
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? _googleAuth = await _googleAccount?.authentication;
 
-  /// Sign In with Google
-  Future handleSignIn(BuildContext context) async {
-    try {
-      await this._googleSignIn.signIn();
-      this._GoogleSignInCatcher = true;
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: _googleAuth?.accessToken,
+      idToken: _googleAuth?.idToken,
+    );
 
-    } catch (error) {
-      displayOnScreen(Text(error.toString()), context);
-    }
+    // Once signed in, return the UserCredential
+    return await _auth.signInWithCredential(credential);
   }
+
+  // for signOut
+  Future<void> googleSignOut() => _googleSignIn.disconnect();
 }

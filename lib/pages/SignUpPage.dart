@@ -176,19 +176,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         ElevatedButton.icon(
-                          onPressed: () {
-                            // IF YOU START APP IN DEBUG MODE - Google will start warning about the risk
-                            // Sign In with Google
-                            CDTAuth.handleSignIn(context).then((value) => {
-                              if (CDTAuth.getGoogleSignInCatcher()) {
-                                // Go to Home page
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const HomePage()))
-                              }
-                            });
-                          },
+                          onPressed: CDTAuth.googleSignOut,
                           icon: Image.asset(
                             'assets/icons/google.png',
                             height: 25,
