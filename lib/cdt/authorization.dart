@@ -1,6 +1,14 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:remi/cdt/font_settings.dart';
+import 'package:remi/cdt/user_print.dart';
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
+
 
 
 /// # Authorization
@@ -8,10 +16,15 @@ import 'package:google_sign_in/google_sign_in.dart';
 /// Created for quick auth with Firebase, check password and email on correct writing.
 class Authorization {
   final int normalPasswordLength = 8;
-  // bool _GoogleSignInCatcher = false;
+  bool AppleIDAccess = false;
+
+  BuildContext _context;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  // Get BuildContext for correct logging to user screen
+  Authorization(BuildContext this._context);
 
 
   /// Check [password] resemblance with [confirm password].
@@ -95,4 +108,100 @@ class Authorization {
 
   // for signOut
   Future<void> googleSignOut() => _googleSignIn.disconnect();
+
+  // Future<User> signInWithApple({List<Scope> scopes = const []}) async {
+  //   // perform the sign-in request
+  //   final result = await TheAppleSignIn.performRequests([AppleIdRequest(requestedScopes: scopes)]);
+  //
+  //   // check the result
+  //   switch (result.status) {
+  //     case AuthorizationStatus.authorized:
+  //       final appleIDCredential = result.credential!;
+  //       final oAuthProvider = OAuthProvider('apple.com');
+  //       final credential = oAuthProvider.credential(
+  //         idToken: String.fromCharCodes(appleIDCredential.identityToken!),
+  //         accessToken:
+  //           String.fromCharCodes(appleIDCredential.authorizationCode!),
+  //       );
+  //
+  //       final userCredential = await _auth.signInWithCredential(credential);
+  //       final firebaseUser = userCredential.user!;
+  //       if (scopes.contains(Scope.fullName)) {
+  //         final userFullName = appleIDCredential.fullName;
+  //         if (userFullName != null && userFullName.givenName != null && userFullName.familyName != null) {
+  //           final displayName = '${userFullName.givenName} ${userFullName.familyName}';
+  //
+  //           await firebaseUser.updateDisplayName(displayName);
+  //         }
+  //       }
+  //       return firebaseUser;
+  //
+  //     case AuthorizationStatus.error:
+  //       displayOnScreen(Text(result.error.toString()), this._context);
+  //       throw PlatformException(
+  //         code: 'ERROR_AUTHORIZATION_DENIED',
+  //         message: result.error.toString(),
+  //       );
+  //
+  //     case AuthorizationStatus.cancelled:
+  //       displayOnScreen(Text('Sign in aborted by user'), this._context);
+  //       throw PlatformException(
+  //         code: 'ERROR_ABORTED_BY_USER',
+  //         message: 'Sign in aborted by user',
+  //       );
+  //
+  //     default:
+  //       throw UnimplementedError();
+  //   }
+  // }
+
+  // More information: https://pub.dev/packages/the_apple_sign_in
+  // https://github.com/tomgilder/flutter_apple_sign_in/issues/10
+  Future<UserCredential> signInWithApple() async {
+    // check available of apple sign-in
+    if (!await TheAppleSignIn.isAvailable()) {
+      displayOnScreen(Text('Not available apple sign-in. Use IPhone'), this._context);
+      throw PlatformException(code: 'NOT_AVAILABLE_APPLE_SIGN_IN');
+    } else {
+      try {
+
+        final AuthorizationResult result = await TheAppleSignIn.performRequests([
+            AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+        ]);
+
+        switch (result.status) {
+          case AuthorizationStatus.authorized:
+            final appleIdCredential = result.credential!;
+            final oAuthProvider = OAuthProvider('apple.com');
+            final credential = oAuthProvider.credential(
+              idToken: String.fromCharCodes(appleIdCredential.identityToken!),
+              accessToken: String.fromCharCodes(appleIdCredential.authorizationCode!),
+            );
+
+            return await _auth.signInWithCredential(credential);
+
+          case AuthorizationStatus.error:
+            throw PlatformException(
+              code: 'ERROR_AUTHORIZATION_DENIED',
+              message: result.error.toString(),
+            );
+
+          case AuthorizationStatus.cancelled:
+            throw PlatformException(
+              code: 'ERROR_ABORTED_BY_USER',
+              message: 'Sign in aborted by user',
+            );
+
+          default:
+            throw UnimplementedError();
+        }
+
+      } catch (e) {
+        debugLog(CDTColors.Red, e.toString());
+        throw PlatformException(code: e.toString());
+      }
+
+    }
+  }
+
 }

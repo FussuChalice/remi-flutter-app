@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:remi/cdt/authorization.dart';
 import 'package:remi/cdt/font_settings.dart';
 import 'package:remi/cdt/user_print.dart';
 import 'package:remi/pages/HomePage.dart';
+import 'package:the_apple_sign_in/scope.dart';
 
 
 import 'LogInPage.dart';
@@ -26,7 +28,20 @@ class _SignUpPageState extends State<SignUpPage> {
         TextEditingController();
 
     // Create CDTAuth OBJ
-    Authorization CDTAuth = Authorization();
+    Authorization CDTAuth = Authorization(context);
+
+    // For AppleSignIn
+    // Future<void> _signInWithApple() async {
+    //   try {
+    //     final authService = Provider.of<Authorization>(context, listen: false);
+    //     final user = await authService.signInWithApple(
+    //       scopes: [Scope.email, Scope.fullName]);
+    //
+    //     debugLog(CDTColors.Green, 'User UID: ${user.uid}');
+    //   } catch (e) {
+    //     debugLog(CDTColors.Red, e.toString());
+    //   }
+    // }
 
     return Scaffold(
       backgroundColor: Color.fromARGB(251, 251, 251, 251),
@@ -200,7 +215,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         ElevatedButton.icon(
-                          onPressed: () => {},
+                          onPressed: CDTAuth.signInWithApple,
                           icon: Image.asset(
                             'assets/icons/appleid.png',
                             height: 25,

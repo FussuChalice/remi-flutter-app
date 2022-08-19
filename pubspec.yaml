@@ -9,6 +9,9 @@ dependencies:
   firebase_auth:
   firebase_core:
   google_sign_in:
+  the_apple_sign_in:
+  firebase_auth_oauth:
+  provider:
   flutter:
     sdk: flutter
 
