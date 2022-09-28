@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "970246546691-jvadrfv6anp39prn2hl9nnfvgel7gle1.apps.googleusercontent.com",
+          "client_id": "970246546691-1tcufq7b47sgmntv8sh57grpvnudfegr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.remi",
-            "certificate_hash": "244d8d07d62bfb60e0772b296bbff21c456df243"
+            "certificate_hash": "12ef52bcf78ce038b67ca8d126a0e560b5f72705"
           }
         },
         {

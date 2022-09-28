@@ -1,6 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:remi/cdt/cdt.dart';
+import 'package:remi/pages/HomePage.dart';
+
+import '../platform_sizes.dart';
 import 'SignUpPage.dart';
 
 class LogInPage extends StatefulWidget {
@@ -14,12 +18,17 @@ class _LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    // Get screen size
-    double _ScreenWidth_ = MediaQuery.of(context).size.width;
+    
+    TextEditingController _UserEmailController = TextEditingController();
+    TextEditingController _UserPasswordController = TextEditingController();
 
     // LogIn variables
     // String _email, _password;
+    Authorization CDTAuth = Authorization(context, HomePage());
+
+    // Init Sizes by platform
+    PlatformSizes PSize = PlatformSizes(Platform.operatingSystem, context);
+    PSize.initScreenSize();
 
     return Scaffold(
       backgroundColor: Color.fromARGB(251, 251, 251, 251),
@@ -38,7 +47,7 @@ class _LogInPageState extends State<LogInPage> {
             Positioned(
               bottom: 0,
               child: Container(
-                width: _ScreenWidth_,
+                width: PSize.getContentInSize(false),
                 height: 450,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -58,7 +67,7 @@ class _LogInPageState extends State<LogInPage> {
                 child: Stack(
                   children: <Widget>[
                     Positioned(
-                      width: _ScreenWidth_,
+                      width: PSize.getContentInSize(false),
                       top: 20,
                       child: Text(
                         'Log-In',
@@ -73,7 +82,7 @@ class _LogInPageState extends State<LogInPage> {
                     Positioned(
                       width: 160,
                       top: 90,
-                      left: (_ScreenWidth_ / 2) - 80,
+                      left: (PSize.getContentInSize(false) / 2) - 80,
                       child: InkWell(
                         onTap: () => {
                           Navigator.push(
@@ -94,11 +103,12 @@ class _LogInPageState extends State<LogInPage> {
                     Positioned(
                       width: 300,
                       top: 130,
-                      left: (_ScreenWidth_ / 2) - 150,
+                      left: (PSize.getContentInSize(false) / 2) - 150,
                       child: TextField(
                         obscureText: false, // if is password TextField I must set true
                         cursorHeight: 15,
                         cursorColor: Colors.black,
+                        controller: _UserEmailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -116,11 +126,12 @@ class _LogInPageState extends State<LogInPage> {
                     Positioned(
                       width: 300,
                       top: 219,
-                      left: (_ScreenWidth_ / 2) - 150,
+                      left: (PSize.getContentInSize(false) / 2) - 150,
                       child: TextField(
                         obscureText: true, // if is password TextField I must set true
                         cursorHeight: 15,
                         cursorColor: Colors.black,
+                        controller: _UserPasswordController,
                         decoration: InputDecoration(
                           labelText: 'Password',
                           labelStyle: TextStyle(
@@ -137,13 +148,13 @@ class _LogInPageState extends State<LogInPage> {
                     Positioned(
                       top: 295,
                       width: 300,
-                      left: (_ScreenWidth_ / 2) - 150,
+                      left: (PSize.getContentInSize(false) / 2) - 150,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         
                         children: <Widget>[
                           ElevatedButton.icon(
-                            onPressed: () => {}, 
+                            onPressed: CDTAuth.signInWithGoogle,
                             icon: Image.asset(
                               'assets/icons/google.png',
                               height: 25,
@@ -168,7 +179,7 @@ class _LogInPageState extends State<LogInPage> {
                             ),
                           ),
                           ElevatedButton.icon(
-                            onPressed: () => {}, 
+                            onPressed: CDTAuth.signInWithApple,
                             icon: Image.asset(
                               'assets/icons/appleid.png',
                               height: 25,
@@ -197,9 +208,10 @@ class _LogInPageState extends State<LogInPage> {
                     ),
                     Positioned(
                       bottom: 20,
-                      left: (_ScreenWidth_ / 2) - 150,
+                      left: (PSize.getContentInSize(false) / 2) - 150,
                       child: TextButton(
-                        onPressed: () => {
+                        onPressed: () {
+                          CDTAuth.signInWithPassword(email: _UserEmailController.text, password: _UserPasswordController.text);
                         },
                         child: Text(
                           'Log-In',

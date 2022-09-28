@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:remi/cdt/authorization.dart';
-import 'package:remi/cdt/font_settings.dart';
-import 'package:remi/cdt/user_print.dart';
-import 'package:remi/pages/HomePage.dart';
-import 'package:the_apple_sign_in/scope.dart';
-
+import 'package:remi/cdt/cdt.dart';
+import 'dart:io';
 
 import 'LogInPage.dart';
+import '../platform_sizes.dart';
+import 'HomePage.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -19,7 +16,6 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
-    double _ScreenWidth_ = MediaQuery.of(context).size.width;
 
     // For create account
     TextEditingController _UserEmailController = TextEditingController();
@@ -28,20 +24,11 @@ class _SignUpPageState extends State<SignUpPage> {
         TextEditingController();
 
     // Create CDTAuth OBJ
-    Authorization CDTAuth = Authorization(context);
-
-    // For AppleSignIn
-    // Future<void> _signInWithApple() async {
-    //   try {
-    //     final authService = Provider.of<Authorization>(context, listen: false);
-    //     final user = await authService.signInWithApple(
-    //       scopes: [Scope.email, Scope.fullName]);
-    //
-    //     debugLog(CDTColors.Green, 'User UID: ${user.uid}');
-    //   } catch (e) {
-    //     debugLog(CDTColors.Red, e.toString());
-    //   }
-    // }
+    Authorization CDTAuth = Authorization(context, HomePage());
+    
+    // Init Sizes by platform
+    PlatformSizes PSize = PlatformSizes(Platform.operatingSystem, context);
+    PSize.initScreenSize();
 
     return Scaffold(
       backgroundColor: Color.fromARGB(251, 251, 251, 251),
@@ -60,7 +47,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Positioned(
             bottom: 0,
             child: Container(
-              width: _ScreenWidth_,
+              width: PSize.getContentInSize(false),
               height: 450,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -79,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Stack(
                 children: <Widget>[
                   Positioned(
-                    width: _ScreenWidth_,
+                    width: PSize.getContentInSize(false),
                     top: 20,
                     child: Text(
                       'Sign-Up',
@@ -94,7 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Positioned(
                     width: 160,
                     top: 90,
-                    left: (_ScreenWidth_ / 2) - 80,
+                    left: (PSize.getContentInSize(false) / 2) - 80,
                     child: InkWell(
                       onTap: () => {
                         Navigator.push(
@@ -115,7 +102,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Positioned(
                     width: 300,
                     top: 130,
-                    left: (_ScreenWidth_ / 2) - 150,
+                    left: (PSize.getContentInSize(false) / 2) - 150,
                     child: TextField(
                       obscureText:
                           false, // if is password TextField I must set true
@@ -139,7 +126,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Positioned(
                     width: 300,
                     top: 219,
-                    left: (_ScreenWidth_ / 2) - 150,
+                    left: (PSize.getContentInSize(false) / 2) - 150,
                     child: Row(children: <Widget>[
                       Flexible(
                         child: TextField(
@@ -186,12 +173,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   Positioned(
                     top: 295,
                     width: 300,
-                    left: (_ScreenWidth_ / 2) - 150,
+                    left: (PSize.getContentInSize(false) / 2) - 150,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         ElevatedButton.icon(
-                          onPressed: CDTAuth.googleSignOut,
+                          onPressed: CDTAuth.createUserWithGoogle,
                           icon: Image.asset(
                             'assets/icons/google.png',
                             height: 25,
@@ -215,7 +202,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         ElevatedButton.icon(
-                          onPressed: CDTAuth.signInWithApple,
+                          onPressed: CDTAuth.createUserWithApple,
                           icon: Image.asset(
                             'assets/icons/appleid.png',
                             height: 25,
@@ -243,7 +230,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   Positioned(
                     bottom: 20,
-                    left: (_ScreenWidth_ / 2) - 150,
+                    left: (PSize.getContentInSize(false)/ 2) - 150,
                     child: TextButton(
                       onPressed: () {
                         debugLog(CDTColors.Cyan,
@@ -280,31 +267,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         }
 
                         if (MistakeCount == 0) {
-                          // Create account by Password and email
-                          List<String> createAccErrors =
-                              CDTAuth.createAccountByPassword(
-                                  email: _UserEmailController.text,
-                                  password: _UserEmailController.text);
+                          // create user
+                          CDTAuth.createUserByPassword(
+                              email: _UserEmailController.text,
+                              password: _UserPasswordController.text
+                          );
 
-                          final int countOfErrors = createAccErrors.length;
-
-                          if (countOfErrors == 0) {
-                            // push to home page
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
-                          } else {
-                            String strWithCreateAccErrors = '';
-                            for (int i = 0; i < countOfErrors; i++) {
-                              strWithCreateAccErrors +=
-                                  createAccErrors[i] + ' ';
-                            }
-
-                            // log errors
-                            debugLog(CDTColors.Red, strWithCreateAccErrors);
-                            displayOnScreen(Text(strWithCreateAccErrors), context);
-                          }
                         } else {
                           debugLog(CDTColors.Red,
                               '${CDTColors.Red}MistakeCount > 0 ${CDTColors.Reset}');
