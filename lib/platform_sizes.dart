@@ -37,5 +37,22 @@ class PlatformSizes {
   }
 
 
-  // TODO: Add for another elements
+  double ScreenWidth() {
+    return this._SCREEN_WIDTH;
+  }
+
+  double ScreenHeight() {
+    return this._SCREEN_HEIGHT;
+  }
+
+}
+
+class windowSize {
+  final MediaQueryData _WINDOW = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
+  double getWidthWithoutContext() {
+    return this._WINDOW.size.width;
+  }
+  double getHeightWithoutContext() {
+    return this._WINDOW.size.height;
+  }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remi/cdt/cdt.dart';
 import 'dart:io';
-
 import 'LogInPage.dart';
 import '../platform_sizes.dart';
 import 'HomePage.dart';
@@ -20,8 +19,12 @@ class _SignUpPageState extends State<SignUpPage> {
     // For create account
     TextEditingController _UserEmailController = TextEditingController();
     TextEditingController _UserPasswordController = TextEditingController();
-    TextEditingController _UserConfirmPasswordController =
-        TextEditingController();
+    TextEditingController _UserConfirmPasswordController = TextEditingController();
+
+    // List assetsURLs = ["10"];
+    // CustomFirebaseStorageAssets.getAssetsURL().then((value) => assetsURLs = value);
+
+    // debugLog(CDTColors.Yellow, assetsURLs.toString());
 
     // Create CDTAuth OBJ
     Authorization CDTAuth = Authorization(context, HomePage());
@@ -203,10 +206,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         ElevatedButton.icon(
                           onPressed: CDTAuth.createUserWithApple,
-                          icon: Image.asset(
-                            'assets/icons/appleid.png',
-                            height: 25,
-                          ),
+                          icon: Image.asset('assets/icons/appleid.png', height: 25,),
                           label: Text(
                             'Apple ID',
                             style: TextStyle(color: Colors.black),

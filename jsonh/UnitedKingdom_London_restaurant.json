@@ -1,0 +1,135 @@
+{
+    {
+        "type": "restaurant",
+        "id": 0,
+        "title": "Launceston Place",
+        "address": "1A Launceston Pl, London W8 5RL, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipPCuuJspaDKMv9Rgp-bnE7QCgyL1zQ5VdfWRyS2=w408-h272-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 1,
+        "title": "Bill's Hammersmith Restaurant",
+        "address": "10 Hammersmith Grove, London W6 7AP, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipMX-Dh8KcJ2TszO8NMtsesfm_lDTYx3XdFf6wXC=w408-h272-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 2,
+        "title": "\u00d4 Gourmet Libanais",
+        "address": "D, Trafalgar House, 38 Juniper Dr, London SW18 1GY, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipOmX0oN3afQbptepl5MJkbfzpt1u31jB5FvpbuV=w408-h306-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 3,
+        "title": "Kazan Restaurant",
+        "address": "93-94 Wilton Rd, Lillington and Longmoore Gardens, London SW1V 1DW, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipP1DsAuvfJiAX4lvyDnuWmVk4MGMbWC5tR8O5F2=w408-h243-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 4,
+        "title": "Noura Brasseries Ltd",
+        "address": "16 Hobart Pl, London SW1W 0HH, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipM35RLMKtTBrirWF8P19KUzXmK8igOqC1EA8Ucn=w408-h306-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 5,
+        "title": "Novikov Restaurant & Bar",
+        "address": "50A Berkeley St, London W1J 8HA, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipMiljBDLObTqpjO2LsYJa0VNTvW3ZI-T1Uhsio=w408-h271-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 6,
+        "title": "sketch",
+        "address": "9 Conduit St, London W1S 2XG, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipNJAw0fULWz1m9xHSTG-6YP049jzcoLSHywDG6J=w408-h272-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 7,
+        "title": "ZIMA Russian Restaurant",
+        "address": "45 Frith St, London W1D 4SD, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipOPsuS4djfT7X0nIJSmlOgQ1iPYF4M3FlfqwvHe=w426-h240-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 8,
+        "title": "TAS Restaurant Bloomsbury",
+        "address": "22 Bloomsbury St, London WC1B 3QJ, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipMyNchA6BpftKRoYoMb9FbheD7hO_BJUCWdNrAv=w408-h272-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 9,
+        "title": "Sarastro",
+        "address": "Sarastro Restaurant, 126 Drury Ln, London WC2B 5SU, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipPvVBrMhovwF-9cezuBKqZMEBFYig-e1Y-j4keA=w408-h272-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 10,
+        "title": "Dans le Noir ? London Restaurant",
+        "address": "69-73 St John St, London EC1M 4AN, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipNQMXUnWUl3IgTnn2atXaZPUREyFKWTV1h8il0j=w408-h305-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 11,
+        "title": "Erebuni Restaurant",
+        "address": "2-5 Carthusian St, Barbican, London EC1M 6EB, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipOi5Agm5AIbhAvFu1Qmrxmg9_QaQJvZDIcDaWba=w408-h306-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 12,
+        "title": "Darwin Brasserie",
+        "address": "Level 36 Sky Garden, 20 Philpot Ln, London EC3M 8AF, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipPdWLNEyADhsHGemKd-BuBYbMrBbJ_U6e_Kq5kJ=w408-h272-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 13,
+        "title": "Restaurant Story",
+        "address": "199 Tooley St, London SE1 2JX, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipOW7pt5vdJ_2YJGuTZP4AlwW3BSqF81_Em8Z3nB=w408-h271-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 14,
+        "title": "Tower Mangal Turkish Restaurants",
+        "address": "55-57 Tower Bridge Rd, London SE1 4TL, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipMhp7PprUcewTaThdmzt_YW9zfJRxXd9-JAzAM_=w408-h306-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 15,
+        "title": "Evin Restaurant",
+        "address": "115 Kingsland High St, London E8 2PB, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipObxCc7GOmJP4YUWMjZGZWLv5FQyLEA3QAn0Yj9=w408-h306-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 16,
+        "title": "som saa",
+        "address": "43A Commercial St, London E1 6BD, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipOaK72Vehv8F7nGNLns2ZITAbKJG6IdLFJClxMC=w408-h249-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 17,
+        "title": "Gaucho",
+        "address": "2 More London Pl, London SE1 2AP, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipNs3K9ax5tUKe8HK4QtHzUkh81MO_C_xLMoRJiC=w408-h271-k-no"
+    },
+    {
+        "type": "restaurant",
+        "id": 18,
+        "title": "Paladar",
+        "address": "4-5 London Rd, London SE1 6JZ, \u0412\u0435\u043b\u0438\u043a\u0430 \u0411\u0440\u0438\u0442\u0430\u043d\u0456\u044f",
+        "home_image": "https://lh5.googleusercontent.com/p/AF1QipMXekFb-2zUOezJfHcZvMnvK7k4qAnv0RqaTH0=w408-h296-k-no"
+    }
+}
