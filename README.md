@@ -1,6 +1,6 @@
 # Remi
 ![remi-cover](cover.jpg)
-
+<a href="https://www.buymeacoffee.com/mmakaliuk" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 ## Description
 Remi - is app wrote on flutter framework for order 
 tables in restaurants, coffees and another places.
