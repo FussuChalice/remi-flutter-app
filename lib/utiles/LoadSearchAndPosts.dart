@@ -1,8 +1,10 @@
 import 'dart:convert';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder_buddy/geocoder_buddy.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:remi/cdt/cdt.dart';
+import 'package:remi/config.dart';
 
 /// If you want use firebase_database
 /// Edit your build.gradle
@@ -13,19 +15,6 @@ import 'package:remi/cdt/cdt.dart';
 /// SDK Platform release notes
 /// https://developer.android.com/studio/releases/platforms
 
-/// Set default args
-final __DEFAULT_COUNTRY_ = "UnitedKingdom";
-final __DEFAULT_CITY_ = "London";
-final __DEFAULT_SERV_ = "hdb";
-
-final Map<String, int> __DEFAULT_S_NUM_ = {
-  "restaurant": 1,
-  "coffee": 2,
-  "bar": 3,
-  "pizzeria": 4,
-  "pub": 5
-};
-
 class ServWidget {
   String address;
   String home_image_path;
@@ -35,123 +24,43 @@ class ServWidget {
   ServWidget(String this.title, String this.home_image_path, String this.address, String this.stars_count);
 }
 
-// class ReturnedParam {
-//   List<Widget> widg;
-//   List<bool> loaded;
-//
-//   ReturnedParam(List<Widget> r)
-// }
-
-// Future<List<Widget>>
-
 
 /// "restaurant": 1,
 ///   "coffee": 2,
 ///   "bar": 3,
 ///   "pizzeria": 4,
 ///   "pub": 5
-Future<List<Widget>> addServices(double c_width, double c_height, List<bool> filter_adds) async {
-  final ref = FirebaseDatabase.instance.ref();
+Future<List<dynamic>> addServices({ double? c_width,  double? c_height, List<bool>? filter_adds, List<bool>? loaded }) async {
+  final DatabaseReference ref = FirebaseDatabase.instance.ref();
+
+  debugLog(CDTColors.Red, "addServices() is running...");
 
   List<Widget> All = [];
   List<ServWidget> swt = [];
+  Set<Marker> all_markers = new Set();
 
-  for (int c = 0; c < filter_adds.length; c++) {
-    String type = "";
-    if (c == 0 && filter_adds[c] == true) {
-      type = "restaurant";
+  List<bool> wbb = [false, false, false, false, false];
 
-      for (int i = 0; i <= 30; i++) {
-        DataSnapshot tmp = await ref.child('$__DEFAULT_SERV_/country/$__DEFAULT_COUNTRY_/city/$__DEFAULT_CITY_/type/$type/${__DEFAULT_S_NUM_['$type'].toString()}$i').get();
-
-        if (tmp.value.toString() == "null") {
-          continue;
-        } else {
-
-          Map<String, dynamic> data = jsonDecode(jsonEncode(tmp.value))  as Map<String, dynamic>;
-
-          swt.add(ServWidget(data['title'].toString(), data['home_image'].toString(), data['address'].toString(), data['stars'].toString()));
-
-          // debugLog(CDTColors.Yellow, data.toString());
-        }
-      }
+  for (int i = 0; i < filter_adds!.length; i++) {
+    debugLog(CDTColors.Magenta, i.toString());
+    if (loaded![i] == true && filter_adds[i] == true) {
+      wbb[i] = false;
     }
-
-    if (c == 1 && filter_adds[c] == true) {
-      type = "coffee";
-
-      for (int i = 0; i <= 30; i++) {
-        DataSnapshot tmp = await ref.child('$__DEFAULT_SERV_/country/$__DEFAULT_COUNTRY_/city/$__DEFAULT_CITY_/type/$type/${__DEFAULT_S_NUM_['$type'].toString()}$i').get();
-
-        if (tmp.value.toString() == "null") {
-          continue;
-        } else {
-
-          Map<String, dynamic> data = jsonDecode(jsonEncode(tmp.value))  as Map<String, dynamic>;
-
-          swt.add(ServWidget(data['title'].toString(), data['home_image'].toString(), data['address'].toString(), data['stars'].toString()));
-
-          debugLog(CDTColors.Yellow, data.toString());
-        }
-      }
+    else if (loaded[i] == false && filter_adds[i] == true) {
+      wbb[i] = true;
     }
+  }
 
-    if (c == 2 && filter_adds[c] == true) {
-      type = "bar";
+  debugLog(CDTColors.Green, "filter_ads: $filter_adds\nloaded: $loaded");
+  debugLog(CDTColors.Green, wbb.toString());
 
-      for (int i = 0; i <= 30; i++) {
-        DataSnapshot tmp = await ref.child('$__DEFAULT_SERV_/country/$__DEFAULT_COUNTRY_/city/$__DEFAULT_CITY_/type/$type/${__DEFAULT_S_NUM_['$type'].toString()}$i').get();
+  debugLog(CDTColors.Red, "1");
+  for (int i = 0; i < filter_adds.length; i++) {
+    debugLog(CDTColors.Red, "3");
+    List<dynamic> tmp_swt = await addForWidgetPage(ref, i, wbb);
 
-        if (tmp.value.toString() == "null") {
-          continue;
-        } else {
-
-          Map<String, dynamic> data = jsonDecode(jsonEncode(tmp.value))  as Map<String, dynamic>;
-
-          swt.add(ServWidget(data['title'].toString(), data['home_image'].toString(), data['address'].toString(), data['stars'].toString()));
-
-          debugLog(CDTColors.Yellow, data.toString());
-        }
-      }
-    }
-
-    if (c == 3 && filter_adds[c] == true) {
-      type = "pizzeria";
-
-      for (int i = 0; i <= 30; i++) {
-        DataSnapshot tmp = await ref.child('$__DEFAULT_SERV_/country/$__DEFAULT_COUNTRY_/city/$__DEFAULT_CITY_/type/$type/${__DEFAULT_S_NUM_['$type'].toString()}$i').get();
-
-        if (tmp.value.toString() == "null") {
-          continue;
-        } else {
-
-          Map<String, dynamic> data = jsonDecode(jsonEncode(tmp.value))  as Map<String, dynamic>;
-
-          swt.add(ServWidget(data['title'].toString(), data['home_image'].toString(), data['address'].toString(), data['stars'].toString()));
-
-          debugLog(CDTColors.Yellow, data.toString());
-        }
-      }
-    }
-
-    if (c == 4 && filter_adds[c] == true) {
-      type = "pub";
-
-      for (int i = 0; i <= 30; i++) {
-        DataSnapshot tmp = await ref.child('$__DEFAULT_SERV_/country/$__DEFAULT_COUNTRY_/city/$__DEFAULT_CITY_/type/$type/${__DEFAULT_S_NUM_['$type'].toString()}$i').get();
-
-        if (tmp.value.toString() == "null") {
-          continue;
-        } else {
-
-          Map<String, dynamic> data = jsonDecode(jsonEncode(tmp.value))  as Map<String, dynamic>;
-
-          swt.add(ServWidget(data['title'].toString(), data['home_image'].toString(), data['address'].toString(), data['stars'].toString()));
-
-          debugLog(CDTColors.Yellow, data.toString());
-        }
-      }
-    }
+    swt += tmp_swt[0];
+    all_markers.addAll(tmp_swt[1]);
 
     if (swt.length != 0) {
       // assembly to List<Widget>
@@ -190,8 +99,8 @@ Future<List<Widget>> addServices(double c_width, double c_height, List<bool> fil
                     Positioned(
                         top: 7,
                         left: 7,
-                        width: c_width / 1.15,
-                        height: c_height - 14,
+                        width: c_width! / 1.15,
+                        height: c_height! - 14,
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -245,5 +154,97 @@ Future<List<Widget>> addServices(double c_width, double c_height, List<bool> fil
 
   }
 
-  return All;
+  List<bool> gnll = generateNewLoadedList(wbb, loaded!);
+  
+  List<dynamic> result = [All, all_markers, gnll];
+
+  debugLog(CDTColors.Blue, "0x0");
+  debugLog(CDTColors.Blue, result.toString());
+
+  return result;
 }
+
+
+List<bool> generateNewLoadedList(List<bool> wbb, List<bool> loaded) {
+  List<bool> result = [];
+
+  for (int i = 0; i < wbb.length; i++) {
+    if (wbb[i] == true && loaded[i] == true) {
+      result[i] = true;
+    }
+    else if (wbb[i] == true && loaded[i] == false) {
+      result[i] = true;
+    }
+    else if (wbb[i] == false && loaded[i] == false) {
+      result[i] = false;
+    }
+    else if (wbb[i] == false && loaded[i] == true) {
+      result[i] = true;
+    }
+  }
+
+  return result;
+}
+
+
+Future<List<dynamic>> addForWidgetPage(DatabaseReference reference, int index, List<bool> selected_filters) async {
+  List<ServWidget> swt = [];
+  Set <Marker> markers = new Set();
+
+
+
+  if (selected_filters[index] == true) {
+    String type = AppConfig.DEFAULT_SERVICES_TYPES[index];
+
+    for (int i = 0; i <= 30; i++) {
+      DataSnapshot tmp = await reference.child(
+          '${AppConfig.DEFAULT_SERV}/country/${AppConfig
+              .DEFAULT_COUNTRY}/city/${AppConfig
+              .DEFAULT_CITY}/type/$type/${AppConfig.DEFAULT_S_NUM['$type']
+              .toString()}$i').get();
+
+      if (tmp.value.toString() == "null") {
+        continue;
+      } else {
+        Map<String, dynamic> data = jsonDecode(jsonEncode(tmp.value)) as Map<
+            String,
+            dynamic>;
+
+        try {
+
+          // GBSearchData Class Provided By geocoder_buddy
+          List<GBSearchData> gsd = await GeocoderBuddy.query(data['address'].toString());
+
+          // GBData Class Provided By geocoder_buddy
+          GBData gbd = await GeocoderBuddy.searchToGBData(gsd.first);
+
+          double position_lat = double.parse(gbd.lat);
+          double position_lon = double.parse(gbd.lon);
+
+          await markers.add(Marker(
+            markerId: MarkerId(gbd.id.toString()),
+            icon: BitmapDescriptor.defaultMarker,
+            position: LatLng(position_lat, position_lon),
+            infoWindow: InfoWindow(
+              title: data['title'].toString(),
+              snippet: "Type: $type, Address: ${data['address'].toString()}",
+            ),
+          )
+          );
+        } catch (e) {
+          debugLog(CDTColors.Green, e.toString());
+        }
+
+        swt.add(ServWidget(
+            data['title'].toString(), data['home_image'].toString(),
+            data['address'].toString(), data['stars'].toString()));
+
+      }
+    }
+  }
+
+  debugLog(CDTColors.Green, "0xALAPAFWP0");
+
+  return [swt, markers];
+}
+

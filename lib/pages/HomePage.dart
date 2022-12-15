@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+import 'package:remi/cdt/cdt.dart';
 import 'package:remi/utiles/LoadSearchAndPosts.dart';
 import '../platform_sizes.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -48,6 +50,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<bool> filter_adds = [true, false, false, false, false];
+  List<bool> loaded      = [false, false, false, false, false];
+
+  List<Widget> loaded_widgets = [];
 
   List<ChipData> chipsets = [
     ChipData(Text("Restaurants"), true, Colors.white),
@@ -62,6 +67,12 @@ class _HomePageState extends State<HomePage> {
   List<Color> navButtonColors = [Color(0xFFFCA311), Color(0xFF1C1B1F), Color(0xFF1C1B1F),];
 
   int _selectedBottomNavIndex = 0;
+
+  MapType _currentMapType = MapType.normal;
+
+  LatLng _initialCameraPosition = LatLng(20.5937, 78.9629);
+
+  Set<Marker> markers = new Set();
 
   @override
 
@@ -186,15 +197,35 @@ class _HomePageState extends State<HomePage> {
             width: PSize.ScreenWidth(),
             top: 151,
             height: PSize.ScreenHeight() - (151),
-            child: FutureBuilder<List<Widget>>(
-                future: addServices(PSize.ScreenWidth() / 2, 150, filter_adds),
+            child: FutureBuilder<List<dynamic>>(
+                future: addServices(
+                  c_width: PSize.ScreenWidth() / 2,
+                  c_height: 150,
+                  filter_adds: filter_adds,
+                  loaded: loaded
+                ),
                 builder: (context, snapshot) {
-                  return snapshot.connectionState == ConnectionState.waiting ?
-                  LinearProgressIndicator(color: Color(0xFFFCA311), backgroundColor:  Color.fromARGB(255, 20, 33, 61)) : ListView(
-                    scrollDirection: Axis.vertical,
-                    children: snapshot.data!.toList(),
-                  );
-                }
+                  if( snapshot.connectionState == ConnectionState.waiting){
+                    return  Center(child: Text('Please wait its loading...'));
+                  }else{
+                    if (snapshot.hasError) {
+                      debugLog(CDTColors.Magenta, snapshot.error.toString());
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+                    else {
+                      markers.addAll(snapshot.data![1]);
+
+                      loaded = snapshot.data![2];
+                      loaded_widgets += snapshot.data![0];
+
+                      return ListView(
+                        scrollDirection: Axis.vertical,
+                        children: snapshot.data![0],
+                      );
+                    }
+                  }
+
+                },
             )
         ),
       ],
@@ -306,18 +337,41 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+
         Positioned(
             width: PSize.ScreenWidth(),
-            height: PSize.ScreenHeight() - (151 + 60),
+            height: PSize.ScreenHeight() - (151 + 58),
             top: 151,
             left: 0,
             child: GoogleMap(
-              initialCameraPosition: CameraPosition(
-                  target: LatLng(0,0)
-              ),
-              mapType: MapType.hybrid,
+              initialCameraPosition: CameraPosition(target: _initialCameraPosition),
+              mapType: _currentMapType,
+              markers: markers,
+              myLocationButtonEnabled: true,
+              myLocationEnabled: true,
             ),
-        )
+        ),
+        Positioned(
+            top: 151 + 60,
+            right: 12,
+            height: 37,
+            width: 38,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _currentMapType = (_currentMapType == MapType.hybrid) ? MapType.normal : MapType.hybrid;
+                });
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.7),
+                  border: Border.all(color: Colors.grey, width: 0.2),
+                  borderRadius: BorderRadius.all(Radius.circular(2))
+                ),
+                child: Icon(Icons.layers_outlined, color: Color(0xFF4b4f52)),
+              ),
+            )
+        ),
       ],
     );
 
@@ -332,6 +386,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _selectedBottomNavIndex = index;
       });
+
     }
 
     return Scaffold(

@@ -12,6 +12,8 @@ dependencies:
   firebase_database:
   google_sign_in:
   google_maps_flutter:
+  location:
+  geocoder_buddy:
   connectivity_plus:
   the_apple_sign_in:
   path_provider:
