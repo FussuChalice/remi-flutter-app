@@ -14,6 +14,12 @@ class LogInPage extends StatefulWidget {
   State<LogInPage> createState() => _LogInPageState();
 }
 
+/// If your app get error with "PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null)"
+/// See this links:
+///   https://developers.google.com/android/guides/client-auth
+///   https://stackoverflow.com/questions/54557479/flutter-and-google-sign-in-plugin-platformexceptionsign-in-failed-com-google
+
+
 class _LogInPageState extends State<LogInPage> {
 
   @override

@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_ui_database/firebase_ui_database.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:remi/cdt/cdt.dart';
-import 'package:remi/utiles/LoadSearchAndPosts.dart';
+import 'package:remi/config.dart';
+import 'package:remi/utiles/CUSL.dart';
 import '../platform_sizes.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -27,6 +29,8 @@ class ChipData {
 
 
 class _HomePageState extends State<HomePage> {
+
+  // Don't edit this func !!!
   List<Widget> buildFilterChips(List<ChipData> structure) {
     List<Widget> result = [];
     for (int i = 0; i < structure.length; i++) {
@@ -50,9 +54,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<bool> filter_adds = [true, false, false, false, false];
-  List<bool> loaded      = [false, false, false, false, false];
-
-  List<Widget> loaded_widgets = [];
+  List<int> loadedCardID = [];
+  int loadedCount = 0;
 
   List<ChipData> chipsets = [
     ChipData(Text("Restaurants"), true, Colors.white),
@@ -68,11 +71,12 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedBottomNavIndex = 0;
 
+  final QueryR = FirebaseDatabase.instance.ref("/hdb/country/0/city/0/type/0/bar").orderByChild("type");
+
+  CUSL CUSL_OBJ = new CUSL(AppConfig.DEFAULT_SERV);
+
   MapType _currentMapType = MapType.normal;
-
   LatLng _initialCameraPosition = LatLng(20.5937, 78.9629);
-
-  Set<Marker> markers = new Set();
 
   @override
 
@@ -197,36 +201,23 @@ class _HomePageState extends State<HomePage> {
             width: PSize.ScreenWidth(),
             top: 151,
             height: PSize.ScreenHeight() - (151),
-            child: FutureBuilder<List<dynamic>>(
-                future: addServices(
-                  c_width: PSize.ScreenWidth() / 2,
-                  c_height: 150,
-                  filter_adds: filter_adds,
-                  loaded: loaded
-                ),
-                builder: (context, snapshot) {
-                  if( snapshot.connectionState == ConnectionState.waiting){
-                    return  Center(child: Text('Please wait its loading...'));
-                  }else{
-                    if (snapshot.hasError) {
-                      debugLog(CDTColors.Magenta, snapshot.error.toString());
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    }
-                    else {
-                      markers.addAll(snapshot.data![1]);
+            child: FirebaseDatabaseListView(
+              scrollDirection: Axis.vertical,
+              pageSize: 10,
+              query: QueryR,
+              itemBuilder: (context, snapshot) {
+                debugLog(CDTColors.Blue, "a ia");
+                debugLog(CDTColors.Red, snapshot.value.toString());
+                if (snapshot.exists) {
 
-                      loaded = snapshot.data![2];
-                      loaded_widgets += snapshot.data![0];
+                  var movie = snapshot.value as Map;
 
-                      return ListView(
-                        scrollDirection: Axis.vertical,
-                        children: snapshot.data![0],
-                      );
-                    }
-                  }
-
-                },
-            )
+                  return Text(movie['address'].toString());
+                } else {
+                  return Text("null is null");
+                }
+              },
+            ),
         ),
       ],
     );
@@ -346,7 +337,6 @@ class _HomePageState extends State<HomePage> {
             child: GoogleMap(
               initialCameraPosition: CameraPosition(target: _initialCameraPosition),
               mapType: _currentMapType,
-              markers: markers,
               myLocationButtonEnabled: true,
               myLocationEnabled: true,
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remi/cdt/font_settings.dart';
+import 'package:intl/intl.dart';
 
 /// cdt.user_print.debugLog
 ///
@@ -9,8 +10,13 @@ import 'package:remi/cdt/font_settings.dart';
 void debugLog(String borderColor, String content) {
   String border = '═══════════════════════════════════════════';
 
+  // Get current date and time for log
+  final DateTime now = DateTime.now();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd H:m:s');
+  final String formatted = formatter.format(now);
+
   print('${borderColor}${border}${CDTColors.Reset}');
-  print('${content}');
+  print('[ $formatted ] ${content}');
   print('${borderColor}${border}${CDTColors.Reset}');
 }
 

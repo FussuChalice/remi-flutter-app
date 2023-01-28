@@ -8,8 +8,6 @@ import 'package:remi/pages/NoInternet.dart';
 import './cdt/cdt.dart';
 import 'firebase_options.dart';
 
-import './pages/LogInPage.dart';
-
 Widget result = NoInternet();
 
 void main() async {

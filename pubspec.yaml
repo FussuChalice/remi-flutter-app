@@ -20,7 +20,7 @@ dependencies:
   firebase_auth_oauth:
   flutter:
     sdk: flutter
-
+  firebase_ui_database:
 dev_dependencies:
   flutter_test:
     sdk: flutter
