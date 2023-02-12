@@ -20,8 +20,8 @@ For release mode use
 
 ## Screenshots
 SignUp page
-![screenshot_signup](/screenshots/screenshot_signup.png)
+![screenshot_signup](./screenshots/screenshot_signup.png)
 LogIn page
-![screenshot_login](/screenshots/screenshot_login.png)
+![screenshot_login](./screenshots/screenshot_login.png)
 404 Page Not Fouund
-![screenshot_404](/screenshots/screenshot_404.png)
+![screenshot_404](./screenshots/screenshot_404.png)
