@@ -62,10 +62,15 @@ input:focus {
   height: 40px;
   background-color: orange;
   border-radius: 20px;
+  transition: 0.5s;
 }
 
 #form-submit:focus {
   outline: none;
+}
+
+#form-submit:hover {
+  background-color: #7d7c29;
 }
 
 span {

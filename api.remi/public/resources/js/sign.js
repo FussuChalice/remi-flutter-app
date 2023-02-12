@@ -21,14 +21,27 @@ function signUp() {
                     }),
                     success: function (data) {
                         if (data.status == "e") {
+                            document.querySelector('.alert').innerHTML = data.error;
                             $('.alert').css({
                                 "position": "absolute",
                                 "width": "100%",
                                 "display": 'block',
                                 "visibility": 'visible'
                             });
-                        } else {
-                            document.cookie = `User=${data.uuid}`;
+                        } 
+                        if (data.status == "s") {
+                            let date = new Date();
+                            /**
+                             * 3600 - one second
+                             * 60 - minutes in hour
+                             * 24 - 1 day, for 10 days is 240 
+                             */                            
+                            date.setTime(date.getTime() + (240 * (3600 * 60)));
+                            date.toGMTString();
+
+                            document.cookie = `_U=${data.uuid}; expires=${date}; path=/`;
+                            // document.cookie = `_Up=${password}; expires=${date}; path=/`;
+                            window.location.href = '/';
                         }
                     },
                     dataType: "json",
@@ -59,4 +72,45 @@ const validateEmail = (email) => {
 
 const validatePassword = (password) => {
     return password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/);
+}
+
+function logIn() {
+    let email = document.getElementById('input-email').value;
+    let password = document.getElementById('input-password').value;
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=UTF-8",
+        url: "/login",
+        data: JSON.stringify({
+            email: email,
+            password: password
+        }),
+        success: function(data) {
+            if (data.status == "e") {
+                document.querySelector('.alert').innerHTML = data.result;
+                $('.alert').css({
+                    "position": "absolute",
+                    "width": "100%",
+                    "display": 'block',
+                    "visibility": 'visible'
+                });
+            } 
+            if (data.status == "s") {
+                let date = new Date();
+                /**
+                 * 3600 - one second
+                 * 60 - minutes in hour
+                 * 24 - 1 day, for 10 days is 240 
+                 */                            
+                date.setTime(date.getTime() + (240 * (3600 * 60)));
+                date.toGMTString();
+
+                document.cookie = `_U=${data.result}; expires=${date}; path=/`;
+                // document.cookie = `_Up=${password}; expires=${date}; path=/`;
+                window.location.href = '/';
+            }
+        },
+        dataType: "json",
+    });
 }
