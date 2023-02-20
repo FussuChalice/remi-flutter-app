@@ -9,13 +9,13 @@ For install all dependencies use this command in project folder
 ## Run 
 For developer mode use
 ```
-    > npm run dev
+    > npm run dev <port>
 ```
 Or click to [start.bat](/start.bat) if your Platform is Windows.
 
 For release mode use
 ```
-    > npm run start
+    > npm run start <port>
 ```
 
 ## Screenshots

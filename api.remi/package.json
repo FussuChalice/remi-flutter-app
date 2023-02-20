@@ -11,8 +11,10 @@
   "author": "FussuChalice",
   "license": "ISC",
   "dependencies": {
+    "@sweetalert2/theme-bulma": "^5.0.15",
     "express": "^4.18.2",
     "sqlite3": "^5.1.4",
+    "sweetalert2": "^11.7.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

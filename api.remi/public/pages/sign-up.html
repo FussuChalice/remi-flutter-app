@@ -14,6 +14,13 @@
     <title>Remi Sign-up</title>
 </head>
 <body>
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <style>
+        #loader {    display: flex;    justify-content: center;    align-items: center;    position: fixed;    z-index: 9999;    width: 100%;    height: 100%;    background-color: #f3f3f3;}  .spinner {    border: 16px solid #f3f3f3;    border-top: 16px solid orange;    border-radius: 50%;    width: 120px;    height: 120px;    animation: spin 2s linear infinite;}  @keyframes spin {    0% { transform: rotate(0deg); }    100% { transform: rotate(360deg); }}
+    </style>
 
     <div id="left-section">
         
@@ -29,7 +36,7 @@
         </div>
     </div>
     <div id="right-section">
-        <img src="../imgs/maciek-sulkowski--6kjHV1Fyrc-unsplash.jpg" alt="left-side_img">
+        <div id="right-img"></div>
     </div>
 
 
@@ -39,6 +46,10 @@
     <script src="../resources/js/sign.js"></script>
 
     <script>
+        window.addEventListener("load", function() {
+          var loader = document.getElementById('loader');
+          loader.style.display = 'none';
+        });
     </script>
 </body>
 </html>

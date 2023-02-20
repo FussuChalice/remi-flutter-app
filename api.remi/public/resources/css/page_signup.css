@@ -7,16 +7,17 @@ body {
   height: 100vh;
   overflow: hidden;
   margin: 0;
-  padding: 0;
+  padding: 10px;
 }
 
-#right-section img {
+#right-img {
   vertical-align: middle;
+  background-image: url(/imgs/maciek-sulkowski--6kjHV1Fyrc-unsplash.jpg);
   border-style: none;
   border-radius: 25px;
-  padding: 10px;
   width: 100%;
   height: 100%;
+  background-size: cover;
 }
 
 #left-section {

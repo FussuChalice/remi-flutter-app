@@ -3,24 +3,24 @@ const sqllite3 = require('sqlite3').verbose();
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
-const utilites = require('./utilites');
+const utility = require('./utility');
 const router = express.Router();
 
-const db = new sqllite3.Database('./database.db');
+const db = new sqllite3.Database('./databases/main.db');
 
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"));
-    console.log(`[${utilites.getCurrentTimeAndDate()}] Connected ${utilites.parseClientIp(req)}`);
+    console.log(`[${utility.getCurrentTimeAndDate()}] Connected ${utility.parseClientIp(req)}`);
 });
 
 router.get('/pages/sign-up', (req, res) => {
     res.sendFile(path.join(__dirname, "/public/pages/sign-up.html"));
-    console.log(`[${utilites.getCurrentTimeAndDate()}] Connected ${utilites.parseClientIp(req)} to /sign-up`);
+    console.log(`[${utility.getCurrentTimeAndDate()}] Connected ${utility.parseClientIp(req)} to /sign-up`);
 });
 
 router.get('/pages/log-in', (req, res) => {
     res.sendFile(path.join(__dirname, "/public/pages/log-in.html"));
-    console.log(`[${utilites.getCurrentTimeAndDate()}] Connected ${utilites.parseClientIp(req)} to /log-in`);
+    console.log(`[${utility.getCurrentTimeAndDate()}] Connected ${utility.parseClientIp(req)} to /log-in`);
 });
 
 // Page for save data to db
@@ -30,7 +30,7 @@ router.post('/signup', async (req, res) => {
     let u_password = req.body.password;
     let u_uuid = uuidv4();
 
-    if (await utilites.checkExistingInDB({
+    if (await utility.checkExistingInDB({
         database: db,
         table_name: table_name,
         param_name: "email",
@@ -41,7 +41,7 @@ router.post('/signup', async (req, res) => {
 
     } else {
 
-        if (await utilites.createPersonInDB({
+        if (await utility.createPersonInDB({
             database: db,
             table_name: table_name,
             email: u_email,
@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
     let u_email = req.body.email;
     let u_password = req.body.password;
 
-    let user_uuid = await utilites.getUUIDByEmailAndPassword({
+    let user_uuid = await utility.getUUIDByEmailAndPassword({
         database: db,
         table_name: table_name,
         email: u_email,
@@ -80,9 +80,33 @@ router.post('/login', async (req, res) => {
 });
 
 
+router.post('/services/info-by-uuid', async (req, res) => {
+    let uuid = req.body.uuid;
+
+    if (uuid === undefined) {
+        res.json({"data":"is undefined"});
+
+    } else {
+        let data = await utility.getInfoByUUID(db, "services_passwords", uuid);
+        res.json(data);
+    }
+});
+
+router.post('/services/save-settings', (req, res) => {
+    let uuid = req.body.uuid;
+    let in_data = req.body.data;
+
+    utility.saveSettings(uuid, in_data);
+    res.json({"status": "success"});
+});
+router.post('/services/save-promocodes', (req, res) => {
+    let uuid = req.body.uuid;
+    let in_data = req.body.data;
+});
+
 router.all('*', (req, res) => {
     res.status(404).sendFile(path.join(__dirname, '/public/errors/404.html'));
-    console.log(`[${utilites.getCurrentTimeAndDate()}] Connected ${utilites.parseClientIp(req)} to /404 `);
+    console.log(`[${utility.getCurrentTimeAndDate()}] Connected ${utility.parseClientIp(req)} to /404 `);
 });
 
 module.exports = router;
