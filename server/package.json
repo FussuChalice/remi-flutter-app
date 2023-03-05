@@ -1,0 +1,31 @@
+{
+  "name": "api.remi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "nodemon main.js",
+    "start": "node ./dist/main.js",
+    "build": "webpack --mode development"
+  },
+  "keywords": [],
+  "author": "FussuChalice",
+  "license": "ISC",
+  "dependencies": {
+    "@sweetalert2/theme-bulma": "^5.0.15",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.4",
+    "sweetalert2": "^11.4.8",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2",
+    "nodemon": "^2.0.20",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-node-externals": "^3.0.0"
+  }
+}

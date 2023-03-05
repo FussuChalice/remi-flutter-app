@@ -1,0 +1,21 @@
+{
+    "status": {
+        "err": "error",
+        "ok": "success"
+    },
+    "errors": {
+        "auth": {
+            "email_is_existed": "Email used by user! Try again, or LogIn!",
+            "incorrect_data": "Invalid email or password! Try again, or SignUp!"
+        },
+        "db": {
+            "failed_insert": "Something went wrong. Failed inserting to DB! Try again."
+        }
+    },
+    "success": {
+        "auth": {
+            "s_signup": "Successful Sign Up!",
+            "s_login": "Successful LogIn!"
+        }
+    }
+}
