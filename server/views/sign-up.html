@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="/assets/images/logo.png">
 
     <link rel="stylesheet" href="../assets/css/libs/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/libs/sweetalert2.min.css">
     <link rel="stylesheet" href="../assets/css/page_styles/page_signup.css">
 
 
@@ -33,6 +34,7 @@
             <input type="password" name="password" id="input-password" placeholder="Password" required/>
             <input type="password" name="repeat-password" id="input-repeat-password" placeholder="Repeat password" required/>
             <button type="button" id="form-submit">Sign-up</button>
+            <a href="/login" id="link_to_page">If you have account - Login</a>
         </div>
     </div>
     <div id="right-section">
@@ -45,6 +47,7 @@
     <script src="../assets/js/libs/jquery-3.6.3.min.js"></script>
 
     <script src="../assets/js/auth/app.validate.js"></script>
+    <script src="../assets/js/libs/sweetalert2.all.min.js"></script>
 
     <script src="../assets/js/auth/app.authorization.js"></script>
 
@@ -75,8 +78,34 @@
                         if (!validateConfirm(password, passwordConfirm)) {
                             reportCustomVaildity(document.getElementById('input-repeat-password'), "Confirm is not correct! Try again");
                         } else {
-                            buildCookieByAuth(authorizationRequestBuilder({type: "signup", email: email, password: password}));
-                            window.location.href = '/';
+                            let authRequest = authorizationRequestBuilder({type: "signup", email: email, password: password});
+                            
+                            if (authRequest.status != "error") {
+                                buildCookie({
+                                    cookieName: "_UUID",
+                                    cookieValue: authRequest.uuid,
+                                    cookiePath: "/",
+                                    cookieExpires: null,
+                                });
+
+                                buildCookie({
+                                    cookieName: "_atoken",
+                                    cookieValue: authRequest.token,
+                                    cookiePath: "/",
+                                    cookieExpires: null,
+                                });
+
+                                window.location.href = '/';
+
+                            } else {
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: authRequest.message,
+                                });
+
+                            }
                         }
                     }
                 } 

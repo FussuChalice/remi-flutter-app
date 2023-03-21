@@ -4,38 +4,42 @@ const serverLogger = require('./serverLogger');
 
 /**
  * Get names of columns in the table of database
- * @param {*} db_path 
+ * @param {Path} db_path 
  * Name of file database is can have extension: db, sqlite3 and another ...
- * @param {*} table_name 
+ * @param {String} table_name 
  * Table name in Database
- * @returns PromiseWithColumnNames
+ * @returns {Promise} PromiseWithColumnNames
  */
 async function getColumnNames(db_path, table_name) {
     const database = new sqlite3.Database(db_path);
 
-    let PromiseWithColumnNames = new Promise(function(resolve, reject) {
-        database.all(`PRAGMA table_info(${table_name})`, function (err, rows) {
-
-            if (err) {
-                serverLogger.Log(err.message, serverLogger.logLevel.ERROR, true);
-            }
+    try {
+        let PromiseWithColumnNames = new Promise(function(resolve, reject) {
+            database.all(`PRAGMA table_info(${table_name})`, function (err, rows) {
     
-            let columnNames = [];
-    
-            rows.forEach(function (row) {
-                columnNames.push(row.name);
+                if (err) {
+                    serverLogger.Log(err.message, serverLogger.logLevel.ERROR, true);
+                }
+        
+                let columnNames = [];
+        
+                rows.forEach(function (row) {
+                    columnNames.push(row.name);
+                });
+        
+                resolve(columnNames);
             });
-    
-            resolve(columnNames);
         });
-    });
 
-    return PromiseWithColumnNames;
+        return PromiseWithColumnNames;
+    } catch (err) {
+        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+    }
 }
 
 /**
  * Convert array to string
- * @param {*} array 
+ * @param {Array} array 
  * Example:
  * ```javascript
  *  var array = [10, "hello", true, "world"];
@@ -70,11 +74,11 @@ async function isExist(result) {
 
 /**
  * 
- * @param {*} param0
+ * @param {Object} param0
  * have three parameters [db_path, table_name, record=null, existed=null] 
- * @param {*} method
+ * @param {databaseMethods} method
  * is getted from databaseMethods
- * @param {*} callback 
+ * @param {Function} callback 
  * function with param (err, result)
  * Example:
  * ```javascript
@@ -136,26 +140,33 @@ async function control({db_path, table_name, record=null, existed=null, select=n
     }
 
 
-    let output = new Promise(function (resolve, reject) {
-        if (method == databaseMethods.CHECK_EXIST || method == databaseMethods.READ) {
-            database.all(query, function (err, result) {
-                if (err) { resolve(0x1) }
-                else {
-                    resolve(result);
-                }
-            });
-        } 
+    try {
 
-        else {
-            database.run(query, function (err, result) {
-                if (err) { resolve(0x1) }
-                else { resolve(result); }
-            });
-        }
+        let output = new Promise(function (resolve, reject) {
+            if (method == databaseMethods.CHECK_EXIST || method == databaseMethods.READ) {
+                database.all(query, function (err, result) {
+                    if (err) { resolve(0x1) }
+                    else {
+                        resolve(result);
+                    }
+                });
+            } 
+    
+            else {
+                database.run(query, function (err, result) {
+                    if (err) { resolve(0x1) }
+                    else { resolve(result); }
+                });
+            }
+    
+        });
 
-    });
+        return output;
 
-    return output;
+    } catch (err) {
+        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+    }
+
 }
 
 
@@ -163,3 +174,4 @@ module.exports.control = control;
 module.exports.databaseMethods = databaseMethods;
 module.exports.arrayToString = arrayToString;
 module.exports.isExist = isExist;
+module.exports.getColumnNames = getColumnNames;

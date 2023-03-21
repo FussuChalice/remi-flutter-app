@@ -5,7 +5,7 @@
  * @param {*} param0 
  * @returns 
  */
-function authorizationRequestBuilder({type, email, password}) {
+function authorizationRequestBuilder({type, email, password, token=null}) {
     let finishURL;
 
     switch(type) {
@@ -25,7 +25,8 @@ function authorizationRequestBuilder({type, email, password}) {
         url: finishURL,
         data: JSON.stringify({
             email: email,
-            password: password
+            password: password,
+            token: token,
         }),
         async: false,
         contentType: "application/json",
@@ -39,15 +40,25 @@ function authorizationRequestBuilder({type, email, password}) {
 
 /**
  * 
- * @param {*} requestBuilder 
+ * @param {Object} param0 
  */
-function buildCookieByAuth(requestBuilder) {
-    if (requestBuilder.status == "success") {
+function buildCookie({
+    cookieName,
+    cookieValue,
+    cookiePath,
+    cookieExpires,
+}) {
+    
+    let fcookieExpires = 0;
 
+    if (!cookieExpires) {
         let currentDate = new Date();
         currentDate.setDate(currentDate.getDate() + 10);
-        let cookieExpires = currentDate.toUTCString();
+        fcookieExpires = currentDate.toUTCString();
 
-        document.cookie = `_UUID=${requestBuilder.uuid}; expires=${cookieExpires}; path=/`;
+    } else {
+        fcookieExpires = cookieExpires;
     }
+
+    document.cookie = `${cookieName}=${cookieValue}; expires=${fcookieExpires}; path=${cookiePath}`;
 }

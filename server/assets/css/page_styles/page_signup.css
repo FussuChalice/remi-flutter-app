@@ -10,6 +10,14 @@ body {
   padding: 10px;
 }
 
+#link_to_page {
+  display: block;
+  text-align: center;
+  position: absolute;
+  bottom: 9%;
+  width: 100%;
+}
+
 #right-img {
   vertical-align: middle;
   background-image: url(/assets/images/maciek-sulkowski--6kjHV1Fyrc-unsplash.jpg);

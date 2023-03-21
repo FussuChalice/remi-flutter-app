@@ -2,7 +2,7 @@
 
 /**
  * 
- * @param {*} email 
+ * @param {String} email 
  * @returns 
  */
 function validateEmail(email) {
@@ -13,7 +13,7 @@ function validateEmail(email) {
 
 /**
  * 
- * @param {*} password 
+ * @param {String} password 
  * @returns 
  */
 function validatePassword(password) {
@@ -24,8 +24,8 @@ function validatePassword(password) {
 
 /**
  * 
- * @param {*} password 
- * @param {*} confirm 
+ * @param {String} password 
+ * @param {String} confirm 
  * @returns 
  */
 function validateConfirm(password, confirm) {
@@ -34,8 +34,8 @@ function validateConfirm(password, confirm) {
 
 /**
  * 
- * @param {*} element 
- * @param {*} validateText 
+ * @param {Element} element 
+ * @param {String} validateText 
  */
 function reportCustomVaildity(element, validateText) {
     element.setCustomValidity(validateText);

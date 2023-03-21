@@ -8,6 +8,7 @@ const globals = require('../globals');
 const messages = require('../helpers/Messages.json');
 const jsonController = require('../helpers/jsonController');
 const uuid = require('uuid');
+const AuthTokenGenerator = require('../helpers/GenerateAuthToken');
 
 router.post('/signup', async function(req, res) {
     let USER_DATA = [
@@ -19,42 +20,47 @@ router.post('/signup', async function(req, res) {
 
     // console.log(req.body);
 
-    let existing_check = await dbController.control({
-        db_path: globals.paths.dbDir + 'main.db',
-        table_name: "services_passwords",
-        record: [USER_DATA[0]],
-        existed: ["email"],
-        select: "UUID",
-    }, dbController.databaseMethods.CHECK_EXIST);
-
-    // console.log(existing_check);
-    // console.log(await dbController.isExist(existing_check));
-
-    if (await dbController.isExist(existing_check)) {
-        res.json({
-            status: messages.status.err,
-            message: messages.errors.auth.email_is_existed
-        });
-    } 
-    else {
-        if (existing_check != 0x1) {
-            let data_insert = await dbController.control({
-                db_path: globals.paths.dbDir + 'main.db',
-                table_name: "services_passwords",
-                record: USER_DATA, 
-            }, dbController.databaseMethods.INSERT);
+    try {
+        let existing_check = await dbController.control({
+            db_path: globals.paths.dbDir + 'main.db',
+            table_name: "services_passwords",
+            record: [USER_DATA[0]],
+            existed: ["email"],
+            select: "UUID",
+        }, dbController.databaseMethods.CHECK_EXIST);
     
-            if (data_insert == 0x1) {
-                res.json({status: messages.status.err, message: messages.errors.db.failed_insert});
-            } else {
-                jsonController.create(globals.paths.dbDir + USER_DATA[2], JSON.stringify(globals.newServiceFilePattern));
-                res.json({
-                    status: messages.status.ok,
-                    message: messages.success.auth.s_signup,
-                    uuid: USER_DATA[2]
-                });
+        // console.log(existing_check);
+        // console.log(await dbController.isExist(existing_check));
+    
+        if (await dbController.isExist(existing_check)) {
+            res.json({
+                status: messages.status.err,
+                message: messages.errors.auth.email_is_existed
+            });
+        } 
+        else {
+            if (existing_check != 0x1) {
+                let data_insert = await dbController.control({
+                    db_path: globals.paths.dbDir + 'main.db',
+                    table_name: "services_passwords",
+                    record: USER_DATA, 
+                }, dbController.databaseMethods.INSERT);
+        
+                if (data_insert == 0x1) {
+                    res.json({status: messages.status.err, message: messages.errors.db.failed_insert});
+                } else {
+                    jsonController.create(globals.paths.dbDir + USER_DATA[2], JSON.stringify(globals.newServiceFilePattern));
+                    res.json({
+                        status: messages.status.ok,
+                        message: messages.success.auth.s_signup,
+                        uuid: USER_DATA[2],
+                        token: AuthTokenGenerator.GenerateAuthToken(USER_DATA[1], USER_DATA[3]).toString(),
+                    });
+                }
             }
         }
+    } catch (err) {
+        slog.Log(err, slog.logLevel.ERROR, true);
     }
 
 });
@@ -62,27 +68,46 @@ router.post('/signup', async function(req, res) {
 router.post('/login', async function (req, res) {
     let USER_DATA_I = [
         req.body.email,
-        req.body.password
+        req.body.password,
     ];
 
-    let response = await dbController.control({
-        db_path: globals.paths.dbDir + 'main.db',
-        table_name: "services_passwords",
-        record: USER_DATA_I,
-        existed: ["email", "password"],
-        select: "UUID",
-    }, dbController.databaseMethods.READ);
+    try {
+        let response = await dbController.control({
+            db_path: globals.paths.dbDir + 'main.db',
+            table_name: "services_passwords",
+            record: USER_DATA_I,
+            existed: ["email", "password"],
+            select: "UUID",
+        }, dbController.databaseMethods.READ);
+    
+        if (response[0] == undefined) {
+            res.json({
+                status: messages.status.err,
+                message: messages.errors.auth.incorrect_data
+            });
+        } else {
+            let DateOfCreation = await dbController.control({
+                db_path: globals.paths.dbDir + 'main.db',
+                table_name: "services_passwords",
+                record: USER_DATA_I,
+                existed: ["email", "password"],
+                select: "time_of_creating",
+            }, dbController.databaseMethods.READ);
+            let timeofC = DateOfCreation[0].time_of_creating;
+            slog.Log(timeofC);
 
-    if (response[0] == undefined) {
-        res.json({
-            status: messages.status.err,
-            message: messages.errors.auth.incorrect_data
-        });
-    } else {
-        res.json({
-            status: messages.status.err,
-            message: response[0].UUID,
-        });
+            let token = AuthTokenGenerator.GenerateAuthToken(USER_DATA_I[1], timeofC);
+            slog.Log(`Generated token: ${token}`, slog.logLevel.INFO, true);
+
+            res.json({
+                status: messages.status.ok,
+                message: messages.success.auth.s_login,
+                uuid: response[0].UUID,
+                token: token.toString(),
+            });
+        }
+    } catch (err) {
+        slog.Log(err, slog.logLevel.ERROR, true);
     }
 });
 

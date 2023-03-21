@@ -25,9 +25,9 @@ function create(filepath, data) {
 
 /**
  * 
- * @param {*} filepath 
+ * @param {Path} filepath 
  * Path to the file
- * @param {*} data 
+ * @param {} data 
  * New data
  */
 function update(filepath, data) {

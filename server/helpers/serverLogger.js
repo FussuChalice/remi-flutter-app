@@ -33,7 +33,7 @@ const logLevel = {
 
 /**
  * 
- * @returns Obj with current time and date
+ * @returns {Object} with current time and date
  */
 function getCurrentTimeAndDate() {
     var today = new Date();
@@ -57,8 +57,8 @@ function getCurrentTimeAndDate() {
 
 
 /**
- * @param {*} request 
- * @returns client ip-address
+ * @param {Request} request 
+ * @returns {String} client ip-address
  */
 function parseClientIPAddress(request) {
     return request.headers['x-forwarded-for']?.split(',').shift() || request.socket?.remoteAddress;
@@ -67,11 +67,11 @@ function parseClientIPAddress(request) {
 
 /**
  * Function for log to console and write to file all logs from the server
- * @param {*} message
+ * @param {String} message
  * Text for print or save to log
- * @param {*} level
+ * @param {logLevel} level
  * DEBUG, INFO, WARN, ERROR, FATAL, from {logType}
- * @param {*} save_to_folder 
+ * @param {boolean} save_to_folder 
  * boolean true to save, or false to not save
  */
 function Log(message, level=logLevel.INFO, save_to_folder=false) {

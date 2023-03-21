@@ -47,6 +47,13 @@ $(document).ready(function() {
         }, 1000);
     }
 
+    function redirectIFNoCookie() {
+        if (window.document.cookie.indexOf("_UUID=") == -1) {
+            window.location.href = "/signup";
+        }
+    }
+    
+    redirectIFNoCookie();
     addMenuMechanic();
     showClock();
 
