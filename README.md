@@ -12,6 +12,9 @@ Link to Figma: https://www.figma.com/file/o0w1z3CFn3bEFpY9vwu5fw/App-REMI?node-i
 
 ---
 
+## API Server
+API server writed on Node.js in folder src/server.
+
 ## Download builds
     Since the application is not completed yet There are no build yet.
 
