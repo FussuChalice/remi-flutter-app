@@ -207,10 +207,46 @@ async function getUUIDById(id, db_path, table_name) {
     }
 }
 
+/**
+ * 
+ * @param {string} uuid 
+ * @param {Path} db_path 
+ * @param {string} table_name 
+ * @returns 
+ */
+async function getIdByUUID(uuid, db_path, table_name) {
+
+    try {
+        const database = new sqlite3.Database(db_path);
+
+        let sql_query = `SELECT Id FROM ${table_name} WHERE UUID = "${uuid}"`;
+
+        let output = new Promise(function (resolve, reject) {
+            database.all(sql_query, function (err, result) {
+                if (err) { 
+                    serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+                    resolve(0x1) 
+                }
+                else {
+                    resolve(result);
+                }
+            });
+        });
+    
+        return output;
+
+    } catch (err) {
+        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+    }
+}
+
 
 module.exports.control = control;
 module.exports.databaseMethods = databaseMethods;
 module.exports.arrayToString = arrayToString;
 module.exports.isExist = isExist;
+
 module.exports.getUUIDById = getUUIDById;
+module.exports.getIdByUUID = getIdByUUID;
+
 module.exports.getColumnNames = getColumnNames;

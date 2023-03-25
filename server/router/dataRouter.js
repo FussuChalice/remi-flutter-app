@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 
-const dbController = require('../helpers/databaseController');
 const jsonController = require('../helpers/jsonController');
-const globals = require('../globals');
 const serverLogger = require('../helpers/serverLogger');
 
 /**==| Get routes |==**/
