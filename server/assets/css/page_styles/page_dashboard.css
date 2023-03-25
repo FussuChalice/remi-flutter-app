@@ -330,6 +330,19 @@ table#orders-table tr {
     height: 100%;
     background-color: #f3f3f3;
 }
+
+#createPromocode {
+    position: absolute;
+    bottom: 15px;
+    text-align: center;
+    width: 80%;
+    left: calc(50% - 40%);
+    background-color: green;
+    color: white;
+    transition: 0.5s;
+    border-radius: 20px;
+    height: 30px;
+}
   
 .spinner {
     border: 16px solid #f3f3f3;

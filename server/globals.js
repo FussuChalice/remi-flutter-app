@@ -6,6 +6,12 @@ const paths = {
     dbDir: './db/',
 };
 
+const tables = {
+    main: {
+        main_table: 'services_passwords',
+    },
+};
+
 /**
  * Data for test APIs
  */
@@ -59,6 +65,7 @@ const serverURL = 'http://localhost';
 module.exports.paths = paths;
 module.exports.serverURL = serverURL;
 module.exports.Test = Test;
+module.exports.tables = tables;
 
 module.exports.newServiceFilePattern = newServiceFilePattern;
 // module.exports.cookieSessionConfig = cookieSessionConfig;

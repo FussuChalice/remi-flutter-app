@@ -1,42 +1,17 @@
-const fs = require('fs');
+const fs =  require('fs');
+const slog = require('./serverLogger');
+const dbController = require('./databaseController');
+const globals = require('../globals');
 
-/**
- * Read the json file
- * @param {*} filepath 
- * Path to the file
- */
-function read(filepath) {
-    const file_data = fs.readFileSync(filepath);
-    const data = JSON.parse(file_data);
+async function readFile(id=null) {
+    try {
+        let uuid = await dbController.getUUIDById(id, globals.paths.dbDir + 'main.db', globals.tables.main.main_table);
+        let result = fs.readFileSync(globals.paths.dbDir + uuid[0].UUID);
+        return JSON.parse(result);
 
-    return data;
+    } catch (err) {
+        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+    }
 }
 
-/**
- * 
- * @param {*} filepath 
- * Path to the file
- * @param {*} data 
- * Data for saving
- */
-function create(filepath, data) {
-    const file = fs.writeFileSync(filepath, data);
-}
-
-/**
- * 
- * @param {Path} filepath 
- * Path to the file
- * @param {} data 
- * New data
- */
-function update(filepath, data) {
-    const file = fs.readFileSync(filepath);
-    let old_data = JSON.parse();
-
-    fs.writeFileSync(filepath, data);
-}
-
-module.exports.read = read;
-module.exports.create = create;
-module.exports.update = update;
+module.exports.readFile = readFile;

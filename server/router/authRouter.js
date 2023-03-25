@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const router = express.Router();
 
@@ -6,7 +5,6 @@ const slog = require('../helpers/serverLogger');
 const dbController = require('../helpers/databaseController');
 const globals = require('../globals');
 const messages = require('../helpers/Messages.json');
-const jsonController = require('../helpers/jsonController');
 const uuid = require('uuid');
 const AuthTokenGenerator = require('../helpers/GenerateAuthToken');
 
@@ -23,7 +21,7 @@ router.post('/signup', async function(req, res) {
     try {
         let existing_check = await dbController.control({
             db_path: globals.paths.dbDir + 'main.db',
-            table_name: "services_passwords",
+            table_name: globals.tables.main.main_table,
             record: [USER_DATA[0]],
             existed: ["email"],
             select: "UUID",
@@ -42,7 +40,7 @@ router.post('/signup', async function(req, res) {
             if (existing_check != 0x1) {
                 let data_insert = await dbController.control({
                     db_path: globals.paths.dbDir + 'main.db',
-                    table_name: "services_passwords",
+                    table_name: globals.tables.main.main_table,
                     record: USER_DATA, 
                 }, dbController.databaseMethods.INSERT);
         
@@ -74,7 +72,7 @@ router.post('/login', async function (req, res) {
     try {
         let response = await dbController.control({
             db_path: globals.paths.dbDir + 'main.db',
-            table_name: "services_passwords",
+            table_name: globals.tables.main.main_table,
             record: USER_DATA_I,
             existed: ["email", "password"],
             select: "UUID",
@@ -88,7 +86,7 @@ router.post('/login', async function (req, res) {
         } else {
             let DateOfCreation = await dbController.control({
                 db_path: globals.paths.dbDir + 'main.db',
-                table_name: "services_passwords",
+                table_name: globals.tables.main.main_table,
                 record: USER_DATA_I,
                 existed: ["email", "password"],
                 select: "time_of_creating",

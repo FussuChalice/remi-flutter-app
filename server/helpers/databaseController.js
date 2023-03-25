@@ -145,7 +145,10 @@ async function control({db_path, table_name, record=null, existed=null, select=n
         let output = new Promise(function (resolve, reject) {
             if (method == databaseMethods.CHECK_EXIST || method == databaseMethods.READ) {
                 database.all(query, function (err, result) {
-                    if (err) { resolve(0x1) }
+                    if (err) { 
+                        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+                        resolve(0x1) 
+                    }
                     else {
                         resolve(result);
                     }
@@ -154,7 +157,10 @@ async function control({db_path, table_name, record=null, existed=null, select=n
     
             else {
                 database.run(query, function (err, result) {
-                    if (err) { resolve(0x1) }
+                    if (err) { 
+                        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+                        resolve(0x1) 
+                    }
                     else { resolve(result); }
                 });
             }
@@ -169,9 +175,42 @@ async function control({db_path, table_name, record=null, existed=null, select=n
 
 }
 
+/**
+ * 
+ * @param {string} id 
+ * @param {Path} db_path 
+ * @param {string} table_name 
+ */
+async function getUUIDById(id, db_path, table_name) {
+
+    try {
+        const database = new sqlite3.Database(db_path);
+
+        let sql_query = `SELECT UUID FROM ${table_name} WHERE Id = ${id}`;
+
+        let output = new Promise(function (resolve, reject) {
+            database.all(sql_query, function (err, result) {
+                if (err) { 
+                    serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+                    resolve(0x1) 
+                }
+                else {
+                    resolve(result);
+                }
+            });
+        });
+    
+        return output;
+
+    } catch (err) {
+        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+    }
+}
+
 
 module.exports.control = control;
 module.exports.databaseMethods = databaseMethods;
 module.exports.arrayToString = arrayToString;
 module.exports.isExist = isExist;
+module.exports.getUUIDById = getUUIDById;
 module.exports.getColumnNames = getColumnNames;
