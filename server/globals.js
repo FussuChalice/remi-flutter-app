@@ -13,7 +13,7 @@ const tables = {
 };
 
 /**
- * Data for test APIs
+ * Data for test APIs requests
  */
 const Test = {
     auth: {
