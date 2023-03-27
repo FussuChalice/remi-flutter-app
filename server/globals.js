@@ -23,33 +23,6 @@ const Test = {
     },
 }
 
-const newServiceFilePattern = {
-    settings: {
-        title: null,
-        type: "restaurant",
-        main_image: null,
-        address: null,
-    },
-    promocodes: [],
-    contacts: {
-        phone_numbers: null,
-        email: null,
-        social_network: {
-            twitter: null,
-            youtube: null,
-            telegram: null,
-            facebook: null,
-            instagram: null,
-            reddit: null,
-            pinterest: null,
-        },
-    },
-    comments: {},
-    orders: {},
-    images: {},
-    menu: {},
-}
-
 // const cookieSessionConfig = {
 //     name: 'session',
 //     secret: 'TqaShjGVydFZzXEg',
@@ -66,6 +39,3 @@ module.exports.paths = paths;
 module.exports.serverURL = serverURL;
 module.exports.Test = Test;
 module.exports.tables = tables;
-
-module.exports.newServiceFilePattern = newServiceFilePattern;
-// module.exports.cookieSessionConfig = cookieSessionConfig;

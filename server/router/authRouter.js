@@ -7,6 +7,7 @@ const globals = require('../globals');
 const messages = require('../helpers/Messages.json');
 const uuid = require('uuid');
 const AuthTokenGenerator = require('../helpers/GenerateAuthToken');
+const patterns = require('../helpers/patterns');
 
 router.post('/signup', async function(req, res) {
     let USER_DATA = [
@@ -47,7 +48,7 @@ router.post('/signup', async function(req, res) {
                 if (data_insert == 0x1) {
                     res.json({status: messages.status.err, message: messages.errors.db.failed_insert});
                 } else {
-                    jsonController.create(globals.paths.dbDir + USER_DATA[2], JSON.stringify(globals.newServiceFilePattern));
+                    jsonController.create(globals.paths.dbDir + USER_DATA[2], JSON.stringify(patterns.newServiceFilePattern));
                     res.json({
                         status: messages.status.ok,
                         message: messages.success.auth.s_signup,
