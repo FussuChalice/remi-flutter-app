@@ -15,12 +15,12 @@ router.get('/', function (req, res) {
 
 router.get('/login', function (req, res) {
     res.sendFile(path.join(__dirname, '../views/log-in.html'));
-    slog.Log("Connected to /login", slog.logLevel.INFO, true);
+    slog.Log(`${slog.parseClientIPAddress(req)} Connected to /login`, slog.logLevel.INFO, true);
 });
 
 router.get('/signup', function (req, res) {
     res.sendFile(path.join(__dirname, '../views/sign-up.html'));
-    slog.Log("Connected to /signup", slog.logLevel.INFO, true);
+    slog.Log(`${slog.parseClientIPAddress(req)} Connected to /signup`, slog.logLevel.INFO, true);
 });
 
 // Route for get all version of Software
@@ -35,6 +35,7 @@ router.get('/version', function (req, res) {
     };
 
     res.send(versions);
+    slog.Log(`${slog.parseClientIPAddress(req)} Connected to /version`, slog.logLevel.INFO, true);
 });
 
 // router.get('*', function (req, res) {

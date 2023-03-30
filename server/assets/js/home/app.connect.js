@@ -1,18 +1,9 @@
 // app.connect.js
 
-const apiUrls = {
-    settings: '/settings/',
-    promocodes: '/promocodes/',
-    images: '/images/',
-    menu: '/menu/',
-    orders: '/orders/',
-    comments: '/comments/',
-};
-
-function createRequest(url=apiUrls.settings, method='GET', data=null, error_callback) {
+function createRequest(method='GET', url, data=null, error_callback) {
     $.ajax({
         type: method,
-        url: '/api/data/' + url,
+        url: url,
         data: JSON.stringify(data),
         dataType: "json",
         async: false,
@@ -23,3 +14,4 @@ function createRequest(url=apiUrls.settings, method='GET', data=null, error_call
         error: error_callback(error),
     });
 }
+
