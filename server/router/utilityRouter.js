@@ -4,11 +4,23 @@ const router = express.Router();
 const dbController = require('../helpers/databaseController');
 const globals = require('../globals');
 
+const messages = require('../helpers/Messages.json');
+
 router.get('/uuid_to_id/', async function(req, res) {
     let uuid = req.query.uuid;
-    let id = await dbController.getIdByUUID(uuid, globals.paths.dbDir + 'main.db', globals.tables.main.main_table);
+    let id = await dbController.selectColumnByColumn({
+        search_column: 'Id',
+        column: "UUID",
+        column_value: uuid,
+        db_path: globals.paths.dbDir + "main.db",
+        table_name: globals.tables.main.main_table,
+    });
 
-    res.send(id[0].Id.toString());
+    if (id[0] == undefined) {
+        res.send(messages.errors.db.not_found);
+    } else {
+        res.send(id[0].Id.toString());
+    }
 });
 
 

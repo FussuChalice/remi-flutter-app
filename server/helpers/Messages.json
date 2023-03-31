@@ -9,7 +9,8 @@
             "incorrect_data": "Invalid email or password! Try again, or SignUp!"
         },
         "db": {
-            "failed_insert": "Something went wrong. Failed inserting to DB! Try again."
+            "failed_insert": "Something went wrong. Failed inserting to DB! Try again.",
+            "not_found": "Not Found"
         }
     },
     "success": {

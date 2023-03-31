@@ -4,6 +4,7 @@ const newServiceFilePattern = {
         type: "restaurant",
         main_image: null,
         address: null,
+        description: null,
     },
     promocodes: [],
     contacts: {

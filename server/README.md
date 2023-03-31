@@ -18,7 +18,7 @@ For install all dependencies use this command in project folder
     - Windows:
         1. Install [CURL](https://curl.se/download.html)
         2. Install [Node.js](https://nodejs.org/)
-        3. Start [windows_setup.bat](/tools/)
+        3. Start [windows_setup.bat](./tools/windows_setup.bat)
 
 ## Run 
 - For developer mode use
@@ -26,8 +26,8 @@ For install all dependencies use this command in project folder
     > npm run dev <port>
 ```
 - Or click:
-    - Windows ([windows_dev_start.bat](/tools/windows_dev_start.bat))
-    - Linux ([linux_dev_start.sh](/tools/linux_dev_start.sh))
+    - Windows ([windows_dev_start.bat](./tools/windows_dev_start.bat))
+    - Linux ([linux_dev_start.sh](./tools/linux_dev_start.sh))
 
 For release mode use
 ```

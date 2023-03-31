@@ -7,6 +7,7 @@ const jsonController = require('../helpers/jsonController');
 const globals = require('../globals');
 const dbController = require('../helpers/databaseController');
 const genAthToken = require('../helpers/GenerateAuthToken');
+const messages = require('../helpers/Messages.json');
 
 const routes = [
     'settings', 'promocodes',
@@ -23,7 +24,7 @@ routes.forEach(function(route) {
 
         } catch (err) {
             serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
-            res.send(404);
+            res.send(messages.errors.db.not_found);
         }
     });
 
@@ -63,7 +64,7 @@ routes.forEach(function(route) {
 
         } catch (err) {
             serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
-            res.send(404);
+            res.send(messages.errors.db.not_found);
         }
     });
 });

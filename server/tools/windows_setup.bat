@@ -4,7 +4,7 @@
     curl -LO "https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"
     curl -LO "https://github.com/js-cookie/js-cookie/releases/download/v3.0.1/js.cookie.min.js"
 
-EXIT /B 0
+EXIT /B
 
 
 :main
@@ -23,8 +23,6 @@ EXIT /B 0
 
     cd ..
     cd ..
-
-    
 
 EXIT /B 0
 
