@@ -1,6 +1,8 @@
 /node_modules/
 /logs/*
 
+/assets/js/libs/*
+
 # because in another commit
 .babelrc
 webpack.config.js

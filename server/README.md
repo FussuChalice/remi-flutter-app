@@ -1,12 +1,5 @@
-<div style="
-background-image: url(https://cdn.dribbble.com/users/1193653/screenshots/18201872/media/80b857ef4be867a285f5d65cc648de9b.jpg); 
-width: 100%; 
-height: 40px; 
-background-size: cover;
-background-repeat: no-repeat;" title="https://cdn.dribbble.com/users/1193653/screenshots/18201872/media/80b857ef4be867a285f5d65cc648de9b.jpg"></div>
-<br />
 
-# API Server for Remi
+# API Server for Remi 🪴
 API Server writed on Node.js, Express.js + SQLite and another CSS and JS libraries.
 
 For install all dependencies use this command in project folder
@@ -16,8 +9,6 @@ For install all dependencies use this command in project folder
 
 ## Setup
 - For setup start:
-    - Windows ([setup.bat](/setup.bat))
-    - Linux ([setup.sh](/setup.sh)) 
     
 
 ## Run 
@@ -26,15 +17,15 @@ For install all dependencies use this command in project folder
     > npm run dev <port>
 ```
 - Or click:
-    - Windows ([start.bat](/start.bat))
-    - Linux ([start.sh](/start.sh))
+    - Windows ([windows_dev_start.bat](/tools/windows_dev_start.bat))
+    - Linux ([linux_dev_start.sh](/tools/linux_dev_start.sh))
 
 For release mode use
 ```
     > npm run start <port>
 ```
 
-## Directories and paths
+## Directories and paths 📂
 
 | Directory | Description                                                       |
 |:---------:|-------------------------------------------------------------------|
@@ -45,4 +36,5 @@ For release mode use
 |    logs   | Folder for application, for save techical logs.                   |
 |     db    | Directory for Database. Application save there json files.        |
 |   assets  | Assets is [*.css, *.js for pages, images, uploads and another]    |
+|   tools   | Folder with tools for start or dev server                         |
 
