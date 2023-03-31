@@ -18,7 +18,11 @@ For install all dependencies use this command in project folder
     - Windows:
         1. Install [CURL](https://curl.se/download.html)
         2. Install [Node.js](https://nodejs.org/)
+<<<<<<< HEAD
         3. Start [windows_setup.bat](./tools/windows_setup.bat)
+=======
+        3. Start [windows_setup.bat](./tools/)
+>>>>>>> 2ff11758037b18d15093934505cdbfad10b9ca75
 
 ## Run 
 - For developer mode use
