@@ -9,7 +9,15 @@ For install all dependencies use this command in project folder
 
 ## Setup
 - For setup start:
-    
+    - Linux: 
+    ```bash
+        cd tools
+        sudo chmod +x linux_setup.sh
+        sudo linux_setup.sh
+    ```
+    - Windows:
+        1. Install [CURL](https://curl.se/download.html)
+        2. Install [Node.js](https://nodejs.org/)
 
 ## Run 
 - For developer mode use

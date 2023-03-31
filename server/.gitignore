@@ -2,7 +2,9 @@
 /logs/*
 
 /assets/js/libs/
+/assets/css/libs/
 
 # because in another commit
 .babelrc
 webpack.config.js
+W

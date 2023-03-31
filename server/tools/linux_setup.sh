@@ -80,6 +80,10 @@ main() {
     cd ..
     cd ..
 
+    chmod +x linux_dev_start.sh
+
     echo "Server setuped"
 
 }
+
+main
