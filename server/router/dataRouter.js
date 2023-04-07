@@ -23,7 +23,7 @@ routes.forEach(function(route) {
             res.send(result[route]);
 
         } catch (err) {
-            serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+            serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
             res.send(messages.errors.db.not_found);
         }
     });
@@ -63,10 +63,22 @@ routes.forEach(function(route) {
             }
 
         } catch (err) {
-            serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+            serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
             res.send(messages.errors.db.not_found);
         }
     });
+});
+
+router.get('/full/:id', async function (req, res) {
+    try {
+            
+        let result = await jsonController.readFile(req.params['id']);
+        res.send(result);
+
+    } catch (err) {
+        serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
+        res.send(messages.errors.db.not_found);
+    }
 });
 
 module.exports.router = router;

@@ -78,7 +78,5 @@ $(document).ready(function() {
     addMenuMechanic();
     showClock();
 
-    // Load pages
-    first_page();
 
 });

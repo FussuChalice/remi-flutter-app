@@ -20,4 +20,12 @@ router.get('/version', function (req, res) {
     slog.Log(`${slog.parseClientIPAddress(req)} Connected to /version`, slog.logLevel.INFO, true);
 });
 
+// If error on client send to this router report
+router.post('/report', function (req, res) {
+    const report = {
+        message: req.body.message || 0,
+        error: req.body.error,
+    };
+});
+
 module.exports.router = router;

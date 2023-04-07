@@ -32,7 +32,7 @@ async function getColumnNames(db_path, table_name) {
 
         return PromiseWithColumnNames;
     } catch (err) {
-        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+        serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
     }
 }
 
@@ -145,7 +145,7 @@ async function control({db_path, table_name, record=null, existed=null, select=n
             if (method == databaseMethods.CHECK_EXIST || method == databaseMethods.READ) {
                 database.all(query, function (err, result) {
                     if (err) { 
-                        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+                        serverLogger.Log(`[databaseController.js]: ${err}`, serverLogger.logLevel.ERROR, true);
                         resolve(0x1) 
                     }
                     else {
@@ -157,7 +157,7 @@ async function control({db_path, table_name, record=null, existed=null, select=n
             else {
                 database.run(query, function (err, result) {
                     if (err) { 
-                        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+                        serverLogger.Log(`[databaseController.js]: ${err}`, serverLogger.logLevel.ERROR, true);
                         resolve(0x1) 
                     }
                     else { resolve(result); }
@@ -169,7 +169,7 @@ async function control({db_path, table_name, record=null, existed=null, select=n
         return output;
 
     } catch (err) {
-        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+        serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
     }
 
 }
@@ -200,7 +200,7 @@ async function selectColumnByColumn({search_column, column, column_value, db_pat
         return output;
 
     } catch (err) {
-        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+        serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
     }
 }
 

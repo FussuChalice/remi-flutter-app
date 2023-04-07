@@ -37,6 +37,7 @@ function first_page() {
     // Cookies = is element from JQuery with functions (set, get, remove)
     const uuid      = Cookies.get("_UUID");
     const atoken    = Cookies.get("_atoken");
+
     $.ajax({
         type: 'GET',
         url: `/api/utility/uuid_to_id?uuid=${uuid}`,

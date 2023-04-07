@@ -16,7 +16,7 @@ async function readFile(id=null) {
         return JSON.parse(result);
 
     } catch (err) {
-        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+        serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
         return 'Error reading';
     }
 }
@@ -32,7 +32,7 @@ async function saveFile(uuid, data, section) {
         return 'Data saved';
 
     } catch (err) {
-        serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+        serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
         return 'Error saving';
     }
 }

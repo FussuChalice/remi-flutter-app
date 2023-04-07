@@ -11,7 +11,7 @@ module.exports.GenerateAuthToken = function(STRING, SECRED_CODE) {
     try {
         return crypto_js.AES.encrypt(STRING, SECRED_CODE);
     } catch (err) {
-        Log(err, logLevel.ERROR, true);
+        Log(`[${__filename}]: ${err}`, logLevel.ERROR, true);
     }
 }
 
@@ -25,6 +25,6 @@ module.exports.ReadAthToken = function(STRING, SECRED_CODE) {
     try {
         return crypto_js.AES.decrypt(STRING, SECRED_CODE);
     } catch (err) {
-        Log(err, logLevel.ERROR, true);
+        Log(`[${__filename}]: ${err}`, logLevel.ERROR, true);
     }
 };

@@ -59,7 +59,7 @@ router.post('/signup', async function(req, res) {
             }
         }
     } catch (err) {
-        slog.Log(err, slog.logLevel.ERROR, true);
+        slog.Log(`[${__filename}]: ${err}`, slog.logLevel.ERROR, true);
     }
 
 });
@@ -106,7 +106,7 @@ router.post('/login', async function (req, res) {
             });
         }
     } catch (err) {
-        slog.Log(err, slog.logLevel.ERROR, true);
+        slog.Log(`[${__filename}]: ${err}`, slog.logLevel.ERROR, true);
     }
 });
 
