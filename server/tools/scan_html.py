@@ -85,7 +85,7 @@ def createDOMList(elements, type):
         temp = []
         for _ in range(len(elements)):
             str = "const " + "id_" + elements[_][2] + "_" + elements[_][0].replace(
-                "-", "_") + " = " + 'document.getElementByID("' + elements[_][0] + '")' + ";\n"
+                "-", "_") + " = " + 'document.getElementById("' + elements[_][0] + '")' + ";\n"
             temp.append(str)
 
         return temp
