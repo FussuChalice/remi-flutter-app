@@ -67,4 +67,62 @@ async function updateHomePageUI(uuid) {
     }
 }
 
+async function updateOrdersPageUI(uuid) {
+    try {
+
+        const id = await getIdByUuid(uuid);
+
+        const settings = await $.ajax({
+            url: `/api/data/settings/${id}`,
+            type: 'GET',
+
+        });
+
+        const orders = await $.ajax({
+            url: `/api/data/orders/${id}`,
+            type: 'GET',
+        });
+
+        /**==============|  Update UI  |==**/
+        
+        // console.log(orders);
+
+        orders.forEach(function (order) {
+            let tmp_tr = document.createElement('tr');
+            let td_avatar = document.createElement('td');
+            let img_avatar = document.createElement('img');
+            let td_name = document.createElement('td');
+            let td_count_of_tables = document.createElement('td');
+            let td_promocode = document.createElement('td');
+            let td_accept_decline = document.createElement('td');
+
+            img_avatar.src = order?.client_avatar;
+            img_avatar.alt = "client_avatar";
+            img_avatar.height = "80";
+            td_avatar.appendChild(img_avatar);
+
+            td_name.innerText = order?.client_name;
+            td_count_of_tables.innerText = order?.count_of_tables;
+            td_promocode.innerText = order?.promocode;
+            td_accept_decline.innerHTML = '<span class="ordersAccept">✔️</span><span class="ordersDecline">❌</span>';
+
+            Array.from([td_avatar, td_name, td_count_of_tables, td_promocode, td_accept_decline]).forEach(function (row) {
+                tmp_tr.appendChild(row);
+            });
+
+            id_table_orders.appendChild(tmp_tr);
+
+        });
+        
+        
+        /**==============| End Update UI  |==**/
+
+
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 updateHomePageUI(Cookies.get('_UUID'));
+updateOrdersPageUI(Cookies.get('_UUID'));

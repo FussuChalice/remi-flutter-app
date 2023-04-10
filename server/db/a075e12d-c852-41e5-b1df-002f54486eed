@@ -26,7 +26,14 @@
     }
   },
   "comments": {},
-  "orders": {},
+  "orders": [
+    {
+      "client_avatar": "/assets/uploads/avatars/clients/3354.jpg",
+      "client_name": "Goose Dream",
+      "count_of_tables": "3",
+      "promocode": ""
+    }
+  ],
   "images": {},
   "menu": {}
 }

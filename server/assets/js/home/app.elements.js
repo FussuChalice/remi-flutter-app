@@ -18,3 +18,4 @@ const id_div_comment_page = document.getElementById("comment-page");
 // ==============================================================
 const id_select_stype = document.getElementById("hms-st");
 const id_table_promocode = document.getElementById("promocode");
+const id_table_orders = document.getElementById("orders-table");

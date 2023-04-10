@@ -51,32 +51,8 @@ $(document).ready(function() {
             window.location.href = "/signup";
         }
     }
-
-    
-    
-    // function  createPromocode() {
-    //     let promocode = {
-    //         name:
-    //     };
-    //     $('#createPromocode').on('click', function() {
-    //         Swal.fire({
-    //             title: 'Enter name of promocode',
-    //             showCloseButton: true,
-    //             input: 'text',
-    //             confirmButtonText: 'Next',
-    //             inputAttributes: {
-    //                 autocapitalize: 'off'
-    //             },
-    //             preConfirm: function(promocode_name) {
-    //                 console.log(promocode_name);
-    //             }
-    //         });
-    //     });
-    // }
     
     redirectIFNoCookie();
     addMenuMechanic();
     showClock();
-
-
 });
