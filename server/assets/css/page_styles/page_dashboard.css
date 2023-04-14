@@ -343,7 +343,25 @@ table#orders-table tr {
     border-radius: 20px;
     height: 30px;
 }
-  
+
+#gallery_wrapper {
+    width: 90%;
+    left: 5%;
+    position: absolute;
+    background-color: aqua;
+    top: 480px;
+    height: 100%;
+    display: flex;
+}
+
+div#main_image {
+    width: 35%;
+    height: 350px;
+    background-color: antiquewhite;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .spinner {
     border: 16px solid #f3f3f3;
     border-top: 16px solid orange;

@@ -4,7 +4,6 @@ const router = express.Router();
 const slog = require('../helpers/serverLogger');
 
 router.get('/', function (req, res) {
-    console.log(req.session)
     res.sendFile(path.join(__dirname, '../views/index.html'));
     slog.Log(`${slog.parseClientIPAddress(req)} Connected to /`, slog.logLevel.INFO, true);
 });

@@ -13,7 +13,7 @@ const routes = [
     'settings', 'promocodes',
     'contacts', 'comments',
     'images', 'menu',
-    'orders',
+    'orders', 'main_image',
 ];
 
 routes.forEach(function(route) {

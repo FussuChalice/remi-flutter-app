@@ -2,10 +2,10 @@ const newServiceFilePattern = {
     settings: {
         title: null,
         type: "restaurant",
-        main_image: null,
         address: null,
         description: null,
     },
+    main_image: null,
     promocodes: [],
     contacts: {
         phone_numbers: null,

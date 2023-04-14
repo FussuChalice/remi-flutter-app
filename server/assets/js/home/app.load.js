@@ -124,5 +124,38 @@ async function updateOrdersPageUI(uuid) {
     }
 }
 
+async function updateGalleryPage(uuid) {
+    try {
+
+        const id = await getIdByUuid(uuid);
+
+        const main_image = await $.ajax({
+            url: `/api/data/main_image/${id}`,
+            type: 'GET',
+        });
+
+        const images = await $.ajax({
+            url: `/api/data/images/${id}`,
+            type: 'GET',
+        });
+
+        /**==============|  Update UI  |==**/
+
+        console.log(main_image);
+        
+        let main_image_element = document.getElementById('main_image');
+        main_image_element.style.backgroundImage = `url('${main_image}')`;
+        console.log(main_image_element);
+        
+        /**==============| End Update UI  |==**/
+
+
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 updateHomePageUI(Cookies.get('_UUID'));
 updateOrdersPageUI(Cookies.get('_UUID'));
+updateGalleryPage(Cookies.get('_UUID'));

@@ -39,7 +39,7 @@ def readfile(path):
 def scan_html(html):
     soup = BeautifulSoup(html, 'html.parser')
 
-    elements_with_id = soup.find_all(id=True, class_=True)
+    elements_with_id = soup.find_all(id=True)
 
 
     result = []
@@ -47,7 +47,6 @@ def scan_html(html):
         buffer_element = []
 
         buffer_element.append(elements_with_id[i]['id'])
-        buffer_element.append(elements_with_id[i]['class'])
         buffer_element.append(elements_with_id[i].name)
 
         result.append(buffer_element)
