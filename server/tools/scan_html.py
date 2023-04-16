@@ -83,7 +83,7 @@ def createDOMList(elements, type):
     if type == "ID":
         temp = []
         for _ in range(len(elements)):
-            str = "const " + "id_" + elements[_][2] + "_" + elements[_][0].replace(
+            str = "const " + "id_" + elements[_][1] + "_" + elements[_][0].replace(
                 "-", "_") + " = " + 'document.getElementById("' + elements[_][0] + '")' + ";\n"
             temp.append(str)
 
@@ -92,7 +92,7 @@ def createDOMList(elements, type):
     elif type == "QuerySelector":
         temp = []
         for _ in range(len(elements)):
-            str = "const " + "id_" + elements[_][2] + "_" + elements[_][0].replace(
+            str = "const " + "id_" + elements[_][1] + "_" + elements[_][0].replace(
                 "-", "_") + " = " + 'document.QuerySelector("#' + elements[_][0] + '")' + ";\n"
             temp.append(str)
 
@@ -101,7 +101,7 @@ def createDOMList(elements, type):
     elif type == "Jquery":
         temp = []
         for _ in range(len(elements)):
-            str = "const " + "id_" + elements[_][2] + "_" + elements[_][0].replace(
+            str = "const " + "id_" + elements[_][1] + "_" + elements[_][0].replace(
                 "-", "_") + " = " + '$("#' + elements[_][0] + '")' + ";\n"
             temp.append(str)
 

@@ -4,7 +4,6 @@
 /assets/js/libs/
 /assets/css/libs/
 
-# because in another commit
-.babelrc
+# because in another commits
 webpack.config.js
-W
+.babelrc

@@ -33,7 +33,7 @@ async function updateHomePageUI(uuid) {
         id_input_hsi_name.value = settings?.title;
         id_input_hsi_description.value = settings?.description;
         id_input_hsi_address.value = settings?.address;
-        id_select_stype.value = settings?.type;
+        id_select_hms_st.value = settings?.type;
         
         promocodes.forEach(function(pcode) {
             let tmp_tr, tmp_td_name, tmp_td_discount, tmp_td_delete;
@@ -110,7 +110,7 @@ async function updateOrdersPageUI(uuid) {
                 tmp_tr.appendChild(row);
             });
 
-            id_table_orders.appendChild(tmp_tr);
+            id_table_orders_table.appendChild(tmp_tr);
 
         });
         
@@ -145,7 +145,7 @@ async function updateGalleryPage(uuid) {
         
         let main_image_element = document.getElementById('main_image');
         main_image_element.style.backgroundImage = `url('${main_image}')`;
-        console.log(main_image_element);
+        // console.log(main_image_element);
         
         /**==============| End Update UI  |==**/
 
