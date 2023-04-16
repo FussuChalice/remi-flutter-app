@@ -1,30 +1,30 @@
-:install_libs
+:: Go to root server directory
+cd ..
+	
+:: Create folder for JavaScript libs and go there
+:: Install all URLs by CURL
+cd ./assets/js
+mkdir libs
+cd ./libs/
 
-    curl -LO "https://code.jquery.com/jquery-3.6.4.min.js"
-    curl -LO "https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"
-    curl -LO "https://github.com/js-cookie/js-cookie/releases/download/v3.0.1/js.cookie.min.js"
+:: SET ALL JS libs URLs here
+:: ===========================================
+curl -LO "https://unpkg.com/material-components-web@14.0.0/dist/material-components-web.min.js"
+curl -LO "https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+:: ===========================================
+	
+:: Go to ./assets/
+cd ..
+cd ..
+	
+:: Create libs forlder in CSS and download URLs by CURL
+cd ./css/
+mkdir libs
+cd ./libs/
 
-EXIT /B
-
-
-:main
-
-    cd ..
-    cd /assets/js/
-    mkdir libs
-
-    CALL install_libs
-
-    cd ..
-    cd ..
-
-    cd /assets/css/
-    curl -LO "https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css"
-
-    cd ..
-    cd ..
-
-EXIT /B 0
-
-
-CALL main
+:: SET ALL CSS libs URLs here
+:: ===========================================
+curl -LO "https://unpkg.com/material-components-web@14.0.0/dist/material-components-web.min.css"
+:: ===========================================
+	
+pause
