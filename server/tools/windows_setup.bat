@@ -9,7 +9,7 @@ cd ./libs/
 
 :: SET ALL JS libs URLs here
 :: ===========================================
-curl -LO "https://unpkg.com/material-components-web@14.0.0/dist/material-components-web.min.js"
+curl -LO "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
 curl -LO "https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"
 :: ===========================================
 	
@@ -24,7 +24,7 @@ cd ./libs/
 
 :: SET ALL CSS libs URLs here
 :: ===========================================
-curl -LO "https://unpkg.com/material-components-web@14.0.0/dist/material-components-web.min.css"
+curl -LO "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
 :: ===========================================
 	
 pause

@@ -19,9 +19,9 @@ app.use(express.json());
 
 app.use('/', pages_route.router);
 app.use('/dev/', dev_route.router);
-app.use('/api/auth/', auth_route.router);
-app.use('/api/data/', data_route.router);
-app.use('/api/utility/', utility_route.router);
+app.use('/api/v1/auth/', auth_route.router);
+app.use('/api/v1/data/', data_route.router);
+app.use('/api/v1/utility/', utility_route.router);
 
 app.use('/assets/', express.static('./assets/'));
 
