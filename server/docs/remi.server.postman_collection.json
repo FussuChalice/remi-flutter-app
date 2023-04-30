@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "d8826e25-10d6-4491-9372-673f2d925e9c",
+		"name": "remi.server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18670211"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "LogIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"example@example.com\",\r\n    \"password\": \"example123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://remi.server/api/v1/login/",
+							"protocol": "http",
+							"host": [
+								"remi",
+								"server"
+							],
+							"path": [
+								"api",
+								"v1",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"example@example.com\",\r\n    \"password\": \"example123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://remi.server/api/v1/signup/",
+							"protocol": "http",
+							"host": [
+								"remi",
+								"server"
+							],
+							"path": [
+								"api",
+								"v1",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetVersion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://remi.server/dev/version",
+					"protocol": "http",
+					"host": [
+						"remi",
+						"server"
+					],
+					"path": [
+						"dev",
+						"version"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uuidToID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://remi.server/api/v1/utility/uuid_to_id?uuid=a9ac528e-6d9d-4e69-ae04-85a63d5d8263",
+					"protocol": "http",
+					"host": [
+						"remi",
+						"server"
+					],
+					"path": [
+						"api",
+						"v1",
+						"utility",
+						"uuid_to_id"
+					],
+					"query": [
+						{
+							"key": "uuid",
+							"value": "a9ac528e-6d9d-4e69-ae04-85a63d5d8263"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://remi.server/api/v1/data/:type/:id",
+					"protocol": "http",
+					"host": [
+						"remi",
+						"server"
+					],
+					"path": [
+						"api",
+						"v1",
+						"data",
+						":type",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "type",
+							"value": "One of list ['settings', 'promocodes',\n    'contacts', 'comments',\n    'images', 'menu',\n    'orders', 'main_image',]"
+						},
+						{
+							"key": "id",
+							"value": "User ID, can use uuidToID request"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

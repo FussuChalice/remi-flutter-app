@@ -20,6 +20,9 @@ For install all dependencies use this command in project folder
         2. Install [Node.js](https://nodejs.org/)
         3. Start [windows_setup.bat](./tools/windows_setup.bat)
 
+## API documentation
+API documentation saved on [postman collection](./docs/remi.server.postman_collection.json). Import this file into Postman to view requests and documents, but there are no documents to request data, so open server files or write documents yourself. This is official article [How export and import data on Postman?](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/) 
+
 ## Run 
 - For developer mode use
 ```
