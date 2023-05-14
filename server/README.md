@@ -49,4 +49,3 @@ For release mode use
 |     db    | Directory for Database. Application save there json files.        |
 |   assets  | Assets is [*.css, *.js for pages, images, uploads and another]    |
 |   tools   | Folder with tools for start or dev server                         |
-

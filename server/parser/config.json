@@ -1,0 +1,15 @@
+{
+    "directories": {
+        "parsed_data_dir": "parsed_data",
+        "output_dir": "output"
+    },
+    "search_queries_file": "queries.txt",
+    "countries_with_cities_url": "https://gist.githubusercontent.com/nsbraksa/fda790ea343e0f1c3812/raw/504d1a618b69ba80f5a3f4e748a28a8769982395/cities.txt",
+
+    "gmp_components": {
+        "search_result_list": ".m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd",
+        "search_result_js_path": "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd",
+        "result_list_stop_block": ".m6QErb.tLjsW.eKbjU",
+        "result_link_class": "hfpxzc"
+    }
+}
