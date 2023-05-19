@@ -4,14 +4,11 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import os
 import json
 from bs4 import BeautifulSoup
-import requests
 import sys
 
 class FileManager:
@@ -88,76 +85,98 @@ def getLinksBySource(source, a_tag_class):
     return links
 
 
-if __name__ == "__main__":
-    config = FileManager.readJsonFile(FileManager, sys.argv[1])
+def parse(config_file):
+        config = FileManager.readJsonFile(FileManager, config_file)
 
-    question = input("You want start from zero (0), or from fetched files (1): ")
-    if question == "0":
-        if os.path.exists(config['directories']['parsed_data_dir']) is False:
-            os.mkdir(config['directories']['parsed_data_dir'])
+        question = input("You want start from zero (0), or from fetched files (1): ")
+        if question == "0":
+            if os.path.exists(config['directories']['parsed_data_dir']) is False:
+                os.mkdir(config['directories']['parsed_data_dir'])
 
-    
-        driver = createWebdriver()
+        
+            driver = createWebdriver()
 
-        # parse search queries
-        for query in FileManager.fileLinesToList(FileManager, config['search_queries_file']):
-            driver.get(textToSearchQuery(query))
-            time.sleep(2)
-
-            SJSM = SeleniumJavaScriptMethods()
-
-            currentScrollHeight = int(driver.execute_script(SJSM.scrollHeight(config['gmp_components']['search_result_js_path'])))
-            
-            stopScrolling = False
-            while stopScrolling == False:
-                driver.execute_script(SJSM.scrollTo(config['gmp_components']['search_result_js_path'], 0, currentScrollHeight))
-
-                currentScrollHeight += int(driver.execute_script(SJSM.scrollHeight(config['gmp_components']['search_result_js_path'])))
+            # parse search queries
+            for query in FileManager.fileLinesToList(FileManager, config['search_queries_file']):
+                driver.get(textToSearchQuery(query))
                 time.sleep(2)
 
-                try:
-                    driver.find_element(By.CSS_SELECTOR, config['gmp_components']['result_list_stop_block'])
-                    stopScrolling = True
+                SJSM = SeleniumJavaScriptMethods()
 
-                except NoSuchElementException:
-                    stopScrolling = False
+                currentScrollHeight = int(driver.execute_script(SJSM.scrollHeight(config['gmp_components']['search_result_js_path'])))
+                
+                stopScrolling = False
+                while stopScrolling == False:
+                    driver.execute_script(SJSM.scrollTo(config['gmp_components']['search_result_js_path'], 0, currentScrollHeight))
 
+                    currentScrollHeight += int(driver.execute_script(SJSM.scrollHeight(config['gmp_components']['search_result_js_path'])))
+                    time.sleep(2)
 
-            # Get source code of element
-            result_list_src = driver.find_element(By.CSS_SELECTOR, config['gmp_components']['search_result_list']).get_attribute("outerHTML")
+                    try:
+                        driver.find_element(By.CSS_SELECTOR, config['gmp_components']['result_list_stop_block'])
+                        stopScrolling = True
 
-            FileManager.saveFile(f"{config['directories']['parsed_data_dir']}/{str(time.time())}.links", 
-                                str(getLinksBySource(result_list_src, config['gmp_components']['result_link_class'])))
-            
-    else:
-        print("I there")
-        if os.path.exists(config['directories']['parsed_data_dir']) is False:
-            print("Could not find folder")
-            exit()
-
-        if os.path.exists(config['directories']['output_dir']) is False:
-            os.mkdir(config['directories']['output_dir'])
+                    except NoSuchElementException:
+                        stopScrolling = False
 
 
-        files = FileManager.listFilesInDirecotry(config['directories']['parsed_data_dir'])
-        print(files)
+                # Get source code of element
+                result_list_src = driver.find_element(By.CSS_SELECTOR, config['gmp_components']['search_result_list']).get_attribute("outerHTML")
 
-        driver = createWebdriver()
+                FileManager.saveFile(f"{config['directories']['parsed_data_dir']}/{str(time.time())}.links", 
+                                    str(getLinksBySource(result_list_src, config['gmp_components']['result_link_class'])))
+                
+        else:
+            if os.path.exists(config['directories']['parsed_data_dir']) is False:
+                print("Could not find folder")
+                exit()
 
-        for file in files:
-            links = eval(FileManager.readFile(file))
+            if os.path.exists(config['directories']['output_dir']) is False:
+                os.mkdir(config['directories']['output_dir'])
 
-            linksCount = 10
 
-            for link in links:
-                if linksCount > 0:
+            files = FileManager.listFilesInDirecotry(config['directories']['parsed_data_dir'])
+            print(files)
 
-                    driver.get(link)
-                    link_page = driver.page_source
-                    
-                    FileManager.saveFile(f"{config['directories']['output_dir']}/{str(time.time())}.txt", str(link_page), "utf-8")
+            driver = createWebdriver()
 
-                    linksCount -= 1
+            for file in files:
+                links = eval(FileManager.readFile(file))
 
-                else:
-                    break
+                linksCount = int(config['link_parse_count_for_file'])
+                pages = []
+
+                for link in links:
+                    if linksCount > 0:
+
+                        driver.get(link)
+
+                        # Parse link page
+
+                        parse_fields = [
+                            config['gmp_components']['title_xpath'],
+                            config['gmp_components']['stars_count_xpath'],
+                            config['gmp_components']['home_img_xpath'],
+                            config['gmp_components']['website_xpath'],
+                            config['gmp_components']['telephone_xpath'],
+                            config['gmp_components']['address_xpath']
+                        ]
+
+
+                        elementList = []
+                        for field in parse_fields:
+                            try:
+                                element = driver.find_element(By.XPATH, field).get_attribute("outerHTML")
+                                elementList.append(element)
+
+                            except NoSuchElementException:
+                                elementList.append(None)
+
+                        pages.append(elementList)
+
+                        linksCount -= 1
+
+                    else:
+                        break
+
+                FileManager.saveFile(f"{config['directories']['output_dir']}/{str(time.time())}.txt", str(pages), "utf-8")

@@ -23,7 +23,7 @@ module.exports.GenerateAuthToken = function(STRING, SECRED_CODE) {
  */
 module.exports.ReadAthToken = function(STRING, SECRED_CODE) {
     try {
-        return crypto_js.AES.decrypt(STRING, SECRED_CODE);
+        return crypto_js.AES.decrypt(STRING, SECRED_CODE).toString(crypto_js.enc.Utf8);
     } catch (err) {
         Log(`[${__filename}]: ${err}`, logLevel.ERROR, true);
     }

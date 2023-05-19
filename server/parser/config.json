@@ -5,11 +5,19 @@
     },
     "search_queries_file": "queries.txt",
     "countries_with_cities_url": "https://gist.githubusercontent.com/nsbraksa/fda790ea343e0f1c3812/raw/504d1a618b69ba80f5a3f4e748a28a8769982395/cities.txt",
-
+    "link_parse_count_for_file": 10,
     "gmp_components": {
         "search_result_list": ".m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd",
         "search_result_js_path": "#QA0Szd > div > div > div.w6VYqd > div:nth-child(2) > div > div.e07Vkf.kA9KIf > div > div > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd > div.m6QErb.DxyBCb.kA9KIf.dS8AEf.ecceSd",
         "result_list_stop_block": ".m6QErb.tLjsW.eKbjU",
-        "result_link_class": "hfpxzc"
+        "result_link_class": "hfpxzc",
+        "title_xpath": "//*[@id=\"QA0Szd\"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div[1]/h1",
+        "stars_count_xpath": "//*[@id=\"QA0Szd\"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div[2]/span[1]/span[1]",
+        "address_xpath": "//*[@id=\"QA0Szd\"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[9]/div[3]/button/div/div[3]/div[1]",
+        "telephone_xpath": "//*[@id=\"QA0Szd\"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[9]/div[8]/button/div/div[3]/div[1]",
+        "home_img_xpath": "//*[@id=\"QA0Szd\"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[1]/div[1]/button/img",
+        "website_xpath": "//*[@id=\"QA0Szd\"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[9]/div[6]/a/div/div[3]/div[2]",
+        "all_images_xpath": "//*[@id=\"QA0Szd\"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[20]/div[2]/div[2]/div[2]/button[1]/div",
+        "all_images_list_xpath": "//*[@id=\"QA0Szd\"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[3]/div[1]"
     }
 }

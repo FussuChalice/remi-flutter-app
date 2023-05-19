@@ -3,12 +3,14 @@ const newServiceFilePattern = {
         title: null,
         type: "restaurant",
         address: null,
+        stars_count: null,
         description: null,
     },
     main_image: null,
     promocodes: [],
     contacts: {
         phone_numbers: null,
+        website: null,
         email: null,
         social_network: {
             twitter: null,

@@ -174,6 +174,30 @@ async function control({db_path, table_name, record=null, existed=null, select=n
 
 }
 
+async function getAllByOneColumn(column, column_value, db_path, table_name) {
+    try {
+
+        const database = new sqlite3.Database(db_path);
+
+        let sql_query = `SELECT * FROM ${table_name} WHERE ${column} = "${column_value}"`;
+
+        return new Promise(function (resolve, reject) {
+            database.all(sql_query, function (err, result) {
+                if (err) { 
+                    serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
+                    resolve(0x1) 
+                }
+                else {
+                    resolve(result);
+                }
+            });
+        });
+
+    } catch (err) {
+        serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
+    }
+}
+
 /**
  * 
  * @param {Object} param0 
@@ -185,7 +209,7 @@ async function selectColumnByColumn({search_column, column, column_value, db_pat
 
         let sql_query = `SELECT ${search_column} FROM ${table_name} WHERE ${column} = "${column_value}"`;
 
-        let output = new Promise(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
             database.all(sql_query, function (err, result) {
                 if (err) { 
                     serverLogger.Log(err, serverLogger.logLevel.ERROR, true);
@@ -196,8 +220,6 @@ async function selectColumnByColumn({search_column, column, column_value, db_pat
                 }
             });
         });
-    
-        return output;
 
     } catch (err) {
         serverLogger.Log(`[${__filename}]: ${err}`, serverLogger.logLevel.ERROR, true);
@@ -209,7 +231,7 @@ module.exports.control = control;
 module.exports.databaseMethods = databaseMethods;
 module.exports.arrayToString = arrayToString;
 module.exports.isExist = isExist;
-
+module.exports.getAllByOneColumn = getAllByOneColumn;
 module.exports.selectColumnByColumn = selectColumnByColumn;
 
 module.exports.getColumnNames = getColumnNames;
