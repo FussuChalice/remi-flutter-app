@@ -2,11 +2,6 @@
 class AppConfig {
   AppConfig._();
 
-  static const DEFAULT_COUNTRY  = "UnitedKingdom";
-  static const DEFAULT_CITY     = "London";
-  static const DEFAULT_SERV     = "hdb";
-
-
   // API KEYS
   static const _GOOGLE_MAP_IOS_API_KEY_ = "AIzaSyD-u0bWJ-4Wf2luKBS_Rr8J43VQTuKaKaQ";
   static const _GOOGLE_MAP_ANDROID_API_KEY_ = "AIzaSyDySMUHQjRkVUVLNBlFc19AwXwv4m_HjUg";

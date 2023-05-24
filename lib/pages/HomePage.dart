@@ -4,8 +4,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_ui_database/firebase_ui_database.dart';
 import 'package:flutter/material.dart';
 import 'package:remi/cdt/cdt.dart';
-import 'package:remi/config.dart';
-import 'package:remi/utiles/CUSL.dart';
 import '../platform_sizes.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -72,8 +70,6 @@ class _HomePageState extends State<HomePage> {
   int _selectedBottomNavIndex = 0;
 
   final QueryR = FirebaseDatabase.instance.ref("/hdb/country/0/city/0/type/0/bar").orderByChild("type");
-
-  CUSL CUSL_OBJ = new CUSL(AppConfig.DEFAULT_SERV);
 
   MapType _currentMapType = MapType.normal;
   LatLng _initialCameraPosition = LatLng(20.5937, 78.9629);
