@@ -1,9 +1,5 @@
 import 'dart:io';
-
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_ui_database/firebase_ui_database.dart';
 import 'package:flutter/material.dart';
-import 'package:remi/cdt/cdt.dart';
 import '../platform_sizes.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -22,9 +18,6 @@ class ChipData {
   ChipData(this.label, this.isSelected, this.bgColor);
 }
 /// I put this code under classes, because if I put back I will have an error
-
-
-
 
 class _HomePageState extends State<HomePage> {
 
@@ -68,8 +61,6 @@ class _HomePageState extends State<HomePage> {
   List<Color> navButtonColors = [Color(0xFFFCA311), Color(0xFF1C1B1F), Color(0xFF1C1B1F),];
 
   int _selectedBottomNavIndex = 0;
-
-  final QueryR = FirebaseDatabase.instance.ref("/hdb/country/0/city/0/type/0/bar").orderByChild("type");
 
   MapType _currentMapType = MapType.normal;
   LatLng _initialCameraPosition = LatLng(20.5937, 78.9629);
@@ -197,23 +188,7 @@ class _HomePageState extends State<HomePage> {
             width: PSize.ScreenWidth(),
             top: 151,
             height: PSize.ScreenHeight() - (151),
-            child: FirebaseDatabaseListView(
-              scrollDirection: Axis.vertical,
-              pageSize: 10,
-              query: QueryR,
-              itemBuilder: (context, snapshot) {
-                debugLog(CDTColors.Blue, "a ia");
-                debugLog(CDTColors.Red, snapshot.value.toString());
-                if (snapshot.exists) {
-
-                  var movie = snapshot.value as Map;
-
-                  return Text(movie['address'].toString());
-                } else {
-                  return Text("null is null");
-                }
-              },
-            ),
+            child: Text("Hello, App!"),
         ),
       ],
     );

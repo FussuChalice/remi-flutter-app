@@ -17,6 +17,7 @@ dependencies:
   connectivity_plus:
   the_apple_sign_in:
   path_provider:
+  http: 
   firebase_auth_oauth:
   flutter:
     sdk: flutter
