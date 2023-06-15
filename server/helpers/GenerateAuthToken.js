@@ -4,7 +4,7 @@ const { Log, logLevel } = require('./serverLogger');
 /**
  * 
  * @param {string} STRING 
- * @param {string} SECRED_CODE 
+ * @param {string} SECRET_CODE 
  * @returns 
  */
 module.exports.GenerateAuthToken = function(STRING, SECRET_CODE) {
