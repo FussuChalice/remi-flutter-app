@@ -10,8 +10,6 @@ tables in restaurants, coffees and another places.
 ## App Design
 Link to Figma: https://www.figma.com/file/o0w1z3CFn3bEFpY9vwu5fw/App-REMI?node-id=20%3A151 
 
----
-
 ## API Server
 API server writed on Node.js in folder src/server.
 

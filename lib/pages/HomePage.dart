@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:remi/network/RemiNetworkLoader.dart';
+import 'package:remi/network/models/Service.dart';
 import '../platform_sizes.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -20,6 +22,21 @@ class ChipData {
 /// I put this code under classes, because if I put back I will have an error
 
 class _HomePageState extends State<HomePage> {
+  late List<Future<Service>> future_services;
+
+  RemiNetworkLoader networkLoader = new RemiNetworkLoader();
+
+  @override
+  void initState() {
+    super.initState();
+
+    List<Future<Service>> loaded_services = [];
+    for (var i = 0; i < 10; i++) {
+      loaded_services.add(networkLoader.fetchService(i.toString()));
+    }
+
+    future_services = loaded_services;
+  }
 
   // Don't edit this func !!!
   List<Widget> buildFilterChips(List<ChipData> structure) {
