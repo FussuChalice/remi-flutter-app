@@ -4,12 +4,12 @@ const { Log, logLevel } = require('./serverLogger');
 /**
  * 
  * @param {string} STRING 
- * @param {string} SECRED_CODE 
+ * @param {string} SECRET_CODE 
  * @returns 
  */
-module.exports.GenerateAuthToken = function(STRING, SECRED_CODE) {
+module.exports.GenerateAuthToken = function(STRING, SECRET_CODE) {
     try {
-        return crypto_js.AES.encrypt(STRING, SECRED_CODE);
+        return crypto_js.AES.encrypt(STRING, SECRET_CODE);
     } catch (err) {
         Log(`[${__filename}]: ${err}`, logLevel.ERROR, true);
     }
@@ -18,12 +18,12 @@ module.exports.GenerateAuthToken = function(STRING, SECRED_CODE) {
 /**
  * 
  * @param {string} STRING 
- * @param {string} SECRED_CODE 
+ * @param {string} SECRET_CODE 
  * @returns 
  */
-module.exports.ReadAthToken = function(STRING, SECRED_CODE) {
+module.exports.ReadAthToken = function(STRING, SECRET_CODE) {
     try {
-        return crypto_js.AES.decrypt(STRING, SECRED_CODE).toString(crypto_js.enc.Utf8);
+        return crypto_js.AES.decrypt(STRING, SECRET_CODE).toString(crypto_js.enc.Utf8);
     } catch (err) {
         Log(`[${__filename}]: ${err}`, logLevel.ERROR, true);
     }
