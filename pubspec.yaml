@@ -1,5 +1,5 @@
 name: remi
-description: App for quick order tables in restaurants.
+description: App for order tables on restaurant, coffee and another places. Writen on Dart and backend on JS
 version: 1.0.0+1
 
 environment:
