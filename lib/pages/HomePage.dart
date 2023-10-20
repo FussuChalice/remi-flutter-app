@@ -4,6 +4,7 @@ import 'package:remi/network/RemiNetworkLoader.dart';
 import 'package:remi/network/models/Service.dart';
 import '../platform_sizes.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../widgets/card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     List<Future<Service>> loaded_services = [];
-    for (var i = 0; i < 10; i++) {
+    for (var i = 1; i < 11; i++) {
       loaded_services.add(networkLoader.fetchService(i.toString()));
     }
 
@@ -205,9 +206,40 @@ class _HomePageState extends State<HomePage> {
             width: PSize.ScreenWidth(),
             top: 151,
             height: PSize.ScreenHeight() - (151),
-            child: Text("Hello, App!"),
+            child: FutureBuilder<List<Service>>(
+        // Specify the list of futures
+        future: Future.wait(future_services),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // While the futures are being fetched, display a loading indicator.
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            // If there's an error, display an error message.
+            return Text('Error: ${snapshot.error}');
+          } else {
+            // When the futures are completed, display the data.
+            if (snapshot.hasData) {
+              List<Service> services = snapshot.data!;
+              return ListView.builder(
+                itemCount: services.length,
+                itemBuilder: (context, index) {
+                  return Column(
+
+                    children: [
+                      RemiCard(imgSrc: services[index].main_image, serviceName: services[index].title,),
+                      SizedBox(height: 10,)
+                    ],
+                  );
+                },
+              );
+            } else {
+              // Handle other states (e.g., no data).
+              return Text('No data available');
+            }
+          }
+        },
         ),
-      ],
+    )],
     );
 
     Widget _mapsPageInStack = Stack(

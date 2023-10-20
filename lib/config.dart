@@ -6,7 +6,7 @@ class AppConfig {
   static const _GOOGLE_MAP_IOS_API_KEY_ = "AIzaSyD-u0bWJ-4Wf2luKBS_Rr8J43VQTuKaKaQ";
   static const _GOOGLE_MAP_ANDROID_API_KEY_ = "AIzaSyDySMUHQjRkVUVLNBlFc19AwXwv4m_HjUg";
 
-  static const _SERVER_API_BASE_ = "localhost:5050/api/v1/";
+  static const _SERVER_API_BASE_ = "192.168.0.177:5050/api/v1/";
   static const _SERVER_API_PROTOCOL_ = "http";
 
 

@@ -1,27 +1,34 @@
 class Service {
-  final String title;
-  final String type;
-  final String address;
-  final String description;
-  final String stars_count;
+  String title;
+  String type;
+  String address;
+  String description;
+  String stars_count;
+  String main_image;
 
-  const Service(
-    {
-      required this.title,
-      required this.type,
-      required this.address,
-      required this.description,
-      required this.stars_count
-    }
-  );
+  Service({
+    this.title = "",
+    this.type = "",
+    this.address = "",
+    this.description = "",
+    this.stars_count = "",
+    this.main_image = "",
+  });
 
   factory Service.fromJson(Map<String, dynamic> json) {
     return Service(
-      title: json['title'],
-      type: json['type'],
-      address: json['address'],
-      description: json['description'],
-      stars_count: json['stars_count'],
+      title: json['title'] ?? "",
+      type: json['type'] ?? "",
+      address: json['address'] ?? "",
+      description: json['description'] ?? "",
+      stars_count: json['stars_count'] ?? "",
+      main_image: json['main_image'] ?? "",
     );
   }
 }
+
+
+
+
+
+
